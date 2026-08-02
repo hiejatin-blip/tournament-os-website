@@ -182,7 +182,7 @@
   background: linear-gradient(180deg, #ffffff 0%, #8888a8 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
-.text-gradient-cyan {
+.text-hi {
   background: linear-gradient(135deg, #ffffff 0%, #22d3ee 60%, #06b6d4 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
@@ -528,12 +528,20 @@ a, button { -webkit-tap-highlight-color: transparent; }
    mobile GPUs; content and interactions are untouched.
    ============================================================================ */
 @media (max-width: 767px) {
-  /* decorative infinite animations off (meteors, orbs, breathe, spin, float) */
+  /* decorative infinite animations off (meteors, orbs, breathe, spin, float,
+     beams, pulses, marquees, holo gradients) — content & interactions stay */
   .animate-float, .animate-float-x, .animate-drift, .animate-drift-slow,
   .animate-breathe, .animate-meteor, .animate-spin-slow, .animate-pulse-ring,
-  .animate-ping, .animate-scanline { animation: none !important; }
+  .animate-ping, .animate-scanline, .animate-pulse, .animate-marquee,
+  .animate-scroll, .animate-border-beam, .animate-grid,
+  .text-gradient-holo,
+  [style*="animation:"] { animation: none !important; }
   /* giant decorative blur orbs hidden — pure decoration */
   .blur-orb { display: none !important; }
+  /* medium decorative glows (blur-2xl/3xl = 40/64px) — filter:none removes
+     paint cost without touching layout; backdrop-filter (glass) unaffected */
+  [class*="blur-2xl"]:not([class*="backdrop"]),
+  [class*="blur-3xl"]:not([class*="backdrop"]) { filter: none !important; }
   /* glass stays but renders lighter */
   .glass, .glass-strong, .glass-card { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
   /* scroll-linked parallax/rotate transforms off — cheaper painting */

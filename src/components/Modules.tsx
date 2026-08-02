@@ -24,7 +24,7 @@ export function Modules() {
   const feat = modules.find((m) => m.featured)!;
   const rest = modules.filter((m) => !m.featured);
   return (
-    <ParallaxSection id="platform" className="py-24 sm:py-32">
+    <ParallaxSection id="platform" className="py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading eyebrow="The platform" title={<>A complete operating system,<br className="hidden sm:block" /> not a pile of features.</>} description="Every module works as part of one system. Registration feeds verification, verification feeds seeding, seeding feeds the bracket — automatically." />
         <motion.div initial={{ opacity: 0, y: 28, rotateX: 6, scale: 0.96 }} whileInView={{ opacity: 1, y: 0, rotateX: 0, scale: 1 }} viewport={{ once: true, margin: "-8%" }} transition={{ duration: 1, ease: ease.emphasized }} className="edge-top relative mt-14 overflow-hidden rounded-3xl border border-cyan-400/12 bg-gradient-to-br from-cyan-400/[0.04] via-white/[0.01] to-transparent p-7 [perspective:800px] sm:p-10">
@@ -47,16 +47,22 @@ export function Modules() {
                 className="spotlight group relative h-full overflow-hidden rounded-2xl glass-card p-6 transition-transform duration-500 hover:-translate-y-1.5"
               >
                 <span className="pointer-events-none absolute right-5 top-5 font-mono text-[10px] text-lo/60">{String(i + 1).padStart(2, "0")}</span>
-                <span className="relative grid h-11 w-11 place-items-center rounded-xl border border-white/8 bg-void-800 text-cyan-300 transition-all duration-500 group-hover:border-cyan-400/40 group-hover:text-cyan-200 group-hover:glow-cyan group-hover:-rotate-6 group-hover:scale-105"><m.icon className="h-5 w-5" /></span>
-                <h3 className="mt-4 text-lg font-semibold text-hi transition-colors group-hover:text-cyan-100">{m.name}</h3>
+                <h3 className="text-lg font-semibold text-hi">{m.name}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-mid">{m.desc}</p>
-                <span className="pointer-events-none absolute inset-x-6 bottom-0 h-px scale-x-0 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent transition-transform duration-500 group-hover:scale-x-100" />
+                <div className="mt-4 space-y-1.5 border-t border-white/6 pt-4">
+                  {m.points.slice(0, 2).map((pt) => (
+                    <p key={pt} className="flex items-center gap-2 text-xs text-mid">
+                      <Check className="h-3.5 w-3.5 shrink-0 text-cyan-300" />
+                      {pt}
+                    </p>
+                  ))}
+                </div>
               </div>
             </StaggerItem>
           ))}
           {/* CTA tile completes the bento */}
           <StaggerItem className="h-full">
-            <div className="group relative flex h-full flex-col justify-center overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/[0.07] to-transparent p-6 transition-transform duration-500 hover:-translate-y-1.5">
+            <div className="flex h-full flex-col justify-center rounded-2xl border border-white/6 bg-white/[0.01] p-6">
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-300/80">And counting</span>
               <h3 className="mt-3 font-display text-xl font-bold text-hi">Every module plugs into every other.</h3>
               <p className="mt-2 text-sm leading-relaxed text-mid">No silos. One event-driven system where every stage feeds the next automatically.</p>

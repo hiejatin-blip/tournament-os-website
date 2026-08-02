@@ -99,15 +99,26 @@ const REGIONS = [
 
 export function GlobeBand() {
   return (
-    <section id="global" className="relative overflow-hidden py-24 sm:py-32">
+    <section id="global" className="relative overflow-hidden py-20 sm:py-24">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.06),transparent_60%)]" />
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        {/* reversed: globe LEFT, copy RIGHT */}
         <div className="grid items-center gap-12 lg:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: '-10%' }}
+            transition={{ duration: 0.8, ease: ease.emphasized }}
+            className="mx-auto"
+          >
+            <GlobeCanvas />
+          </motion.div>
+
           <div>
             <SectionHeading
               align="left"
               eyebrow="Global by default"
-              title={<>28 edge regions. <span className="text-gradient-cyan">One arena.</span></>}
+              title={<>28 edge regions. <span className="text-hi">Your players are already local.</span></>}
               description="Tournament OS runs closer to your players than their own ping. Matches, brackets, and check-ins are served from the edge region nearest to every competitor — automatically."
             />
             <ul className="mt-8 flex flex-wrap gap-2">
@@ -117,35 +128,19 @@ export function GlobeBand() {
                 </span>
               ))}
             </ul>
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.6, ease: ease.emphasized }}
-              className="mt-8 grid max-w-md grid-cols-3 gap-3"
-            >
+            <div className="mt-8 grid max-w-md grid-cols-3 gap-3">
               {[
-                { v: "38ms", l: "p50 latency" },
-                { v: "99.99%", l: "uptime" },
-                { v: "28", l: "edge regions" },
+                { v: '38ms', l: 'p50 latency' },
+                { v: '99.99%', l: 'uptime' },
+                { v: '28', l: 'edge regions' },
               ].map((s) => (
                 <div key={s.l} className="rounded-2xl border border-white/6 bg-white/[0.02] p-4 text-center">
                   <p className="font-display text-xl font-bold text-cyan-300">{s.v}</p>
                   <p className="mt-1 font-mono text-[10px] uppercase tracking-wider text-lo">{s.l}</p>
                 </div>
               ))}
-            </motion.div>
+            </div>
           </div>
-
-          <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-10%" }}
-            transition={{ duration: 0.8, ease: ease.emphasized }}
-            className="mx-auto"
-          >
-            <GlobeCanvas />
-          </motion.div>
         </div>
       </div>
     </section>

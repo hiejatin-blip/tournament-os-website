@@ -311,7 +311,7 @@ export function InteractiveSim() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Interactive AI Arena"
-          title={<>Live Tournament <span className="text-gradient-cyan">Physics Sandbox.</span></>}
+          title={<>Watch the engine run <span className="text-hi">a live bracket.</span></>}
           description="Click below to spawn 8 competitive organizations into a live real-time physics simulation. Watch Tournament OS automatically orchestrate collisions, match resolutions, and bracket progression on the fly."
         />
 

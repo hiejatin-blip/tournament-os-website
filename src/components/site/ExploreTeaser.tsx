@@ -1,9 +1,10 @@
 import { ease } from "@/shared/motion/motion-tokens";
 import { Link } from "react-router-dom";
+import { Radio } from "lucide-react";
 import { motion } from "framer-motion";
 import { ArrowRight, Trophy, Users, UserCheck, Building2 } from "lucide-react";
 import { SectionHeading, Stagger, StaggerItem , spotlightHandlers } from "../ui";
-import { tournaments, guilds, players, statusStyles } from "@/lib/directory";
+import { tournaments, guilds, players, statusStyles, fmtNum } from "@/lib/directory";
 
 const dirs = [
   { icon: Trophy, label: "Tournaments", to: "/explore/tournaments", count: "318K+", desc: "Live & upcoming events" },
@@ -20,7 +21,7 @@ export function ExploreTeaser() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="The public platform"
-          title={<>A living network of <span className="text-gradient-cyan">competition.</span></>}
+          title={<>What&apos;s live on <span className="text-hi">Tournament OS right now.</span></>}
           description="Tournament OS isn't just software — it's a public arena. Explore live tournaments, verified guilds, ranked teams, and player careers, all in one place."
         />
 
@@ -60,7 +61,13 @@ export function ExploreTeaser() {
                 </div>
                 <p className="relative mt-3 text-sm font-semibold text-hi group-hover:text-cyan-100">{t.name}</p>
                 <div className="relative mt-2 flex items-center justify-between text-xs text-mid">
-                  <span>{t.prize}</span><span>{t.filled}/{t.slots}</span>
+                  <span>{t.prize}</span>
+                  <span className="flex items-center gap-2">
+                    {t.status === 'Live' && t.viewers ? (
+                      <span className="flex items-center gap-1 font-mono text-[10px] text-rose-300"><Radio className="h-3 w-3" />{fmtNum(t.viewers)}</span>
+                    ) : null}
+                    <span>{t.filled}/{t.slots}</span>
+                  </span>
                 </div>
                 <div className="relative mt-2 h-1 w-full overflow-hidden rounded-full bg-white/8">
                   <motion.div initial={{ width: 0 }} whileInView={{ width: `${(t.filled / t.slots) * 100}%` }} viewport={{ once: true }} transition={{ duration: 1, ease: ease.emphasized }} className="h-full rounded-full bg-gradient-to-r from-cyan-500 to-cyan-300" />

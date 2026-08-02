@@ -21,7 +21,7 @@ const changelog = [
 export function ChangelogPage() {
   return (
     <>
-      <PageHeader eyebrow="Changelog" title={<>Shipping <span className="text-gradient-cyan">relentlessly.</span></>} description="Every improvement to the Tournament OS platform, in reverse chronological order." />
+      <PageHeader eyebrow="Changelog" title={<>Shipping <span className="text-hi">relentlessly.</span></>} description="Every improvement to the Tournament OS platform, in reverse chronological order." />
       <PageSection>
         <Timeline
           data={changelog.map((c) => ({
@@ -55,7 +55,7 @@ const roadmap = [
 export function RoadmapPage() {
   return (
     <>
-      <PageHeader eyebrow="Roadmap" title={<>Where we're <span className="text-gradient-cyan">headed.</span></>} description="A transparent look at what's shipping now, what's next, and what's on the horizon." />
+      <PageHeader eyebrow="Roadmap" title={<>Where we're <span className="text-hi">headed.</span></>} description="A transparent look at what's shipping now, what's next, and what's on the horizon." />
       <PageSection>
         <TracingBeam>
           <div className="space-y-8">
@@ -104,7 +104,7 @@ export function StatusPage() {
   ];
   return (
     <>
-      <PageHeader eyebrow="Status" title={<>All systems <span className="text-gradient-cyan">operational.</span></>} description="Real-time status of every Tournament OS service." />
+      <PageHeader eyebrow="Status" title={<>All systems <span className="text-hi">operational.</span></>} description="Real-time status of every Tournament OS service." />
       <PageSection>
         <div className="mx-auto max-w-3xl">
           <div className="mb-6 flex items-center gap-6 rounded-2xl border border-emerald-400/30 bg-emerald-500/5 p-5">

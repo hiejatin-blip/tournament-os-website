@@ -53,7 +53,7 @@ export function TournamentsDirectory() {
 
   return (
     <>
-      <PageHeader eyebrow="Tournament Directory" title={<>Find your <span className="text-gradient-cyan">next event.</span></>} description="Browse live, open, and upcoming tournaments across every competitive title.">
+      <PageHeader eyebrow="Tournament Directory" title={<>Find your <span className="text-hi">next event.</span></>} description="Browse live, open, and upcoming tournaments across every competitive title.">
         <Breadcrumb items={[{ label: "Explore", to: "/explore" }, { label: "Tournaments" }]} />
       </PageHeader>
       <PageSection>
@@ -104,7 +104,7 @@ export function GuildsDirectory() {
 
   return (
     <>
-      <PageHeader eyebrow="Guild Directory" title={<>Discover <span className="text-gradient-cyan">competitive guilds.</span></>} description="Verified organizations running the world's most active tournament circuits.">
+      <PageHeader eyebrow="Guild Directory" title={<>Discover <span className="text-hi">competitive guilds.</span></>} description="Verified organizations running the world's most active tournament circuits.">
         <Breadcrumb items={[{ label: "Explore", to: "/explore" }, { label: "Guilds" }]} />
       </PageHeader>
       <PageSection>
@@ -163,7 +163,7 @@ export function PlayersDirectory() {
 
   return (
     <>
-      <PageHeader eyebrow="Player Directory" title={<>Ranked <span className="text-gradient-cyan">competitors.</span></>} description="Every player, ranked by rating with full career histories and achievements.">
+      <PageHeader eyebrow="Player Directory" title={<>Ranked <span className="text-hi">competitors.</span></>} description="Every player, ranked by rating with full career histories and achievements.">
         <Breadcrumb items={[{ label: "Explore", to: "/explore" }, { label: "Players" }]} />
       </PageHeader>
       <PageSection>
@@ -224,7 +224,7 @@ export function TeamsDirectory() {
 
   return (
     <>
-      <PageHeader eyebrow="Team Directory" title={<>The global <span className="text-gradient-cyan">team ladder.</span></>} description="Ranked rosters competing across every title on Tournament OS.">
+      <PageHeader eyebrow="Team Directory" title={<>The global <span className="text-hi">team ladder.</span></>} description="Ranked rosters competing across every title on Tournament OS.">
         <Breadcrumb items={[{ label: "Explore", to: "/explore" }, { label: "Teams" }]} />
       </PageHeader>
       <PageSection>

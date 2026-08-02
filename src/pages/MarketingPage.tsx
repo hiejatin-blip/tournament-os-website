@@ -49,7 +49,7 @@ export function MarketingPage({ config, breadcrumb }: { config: PageConfig; brea
         </PageSection>
       )}
 
-      <PageSection eyebrow="Capabilities" heading={<>Everything, <span className="text-gradient-cyan">handled.</span></>}>
+      <PageSection eyebrow="Capabilities" heading={<>Everything, <span className="text-hi">handled.</span></>}>
         <FeatureGrid items={config.features} />
       </PageSection>
 

@@ -94,11 +94,9 @@ export function ParallaxSection({
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [`${speed * 100}px`, `${-speed * 100}px`]);
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0.3, 1, 1, 0.3]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.97]);
   return (
     <section ref={ref} id={id} className={cn("relative scroll-mt-24", className)}>
-      <motion.div style={{ y, opacity, scale }} className="will-change-transform">
+      <motion.div style={{ y }} className="will-change-transform">
         {children}
       </motion.div>
     </section>
@@ -114,8 +112,8 @@ export function Reveal({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, y, scale: s, rotateX: rotate, filter: blur ? "blur(6px)" : "none" }}
-      whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y, scale: s, rotateX: rotate }}
+      whileInView={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
       viewport={{ once, margin: "-8% 0px -8% 0px" }}
       transition={{ duration: 1, delay, ease: ease.emphasized }}
     >
@@ -126,7 +124,7 @@ export function Reveal({
 
 /* ==================== Stagger ==================== */
 const cV = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } } };
-const iV = { hidden: { opacity: 0, y: 30, scale: 0.94, filter: "blur(4px)" }, show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", transition: { duration: 0.8, ease: ease.emphasized } } };
+const iV = { hidden: { opacity: 0, y: 30, scale: 0.94 }, show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.8, ease: ease.emphasized } } };
 
 export function Stagger({ children, className }: { children: ReactNode; className?: string }) {
   return (
@@ -183,8 +181,8 @@ export function SectionHeading({
         </motion.span>
       )}
       <motion.h2
-        initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
-        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        initial={{ opacity: 0, y: 22 }}
+        whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-10%" }}
         transition={{ duration: 0.9, delay: 0.05, ease: ease.emphasized }}
         className="mt-5 text-balance text-3xl font-bold leading-[1.04] text-gradient sm:text-5xl md:text-6xl"

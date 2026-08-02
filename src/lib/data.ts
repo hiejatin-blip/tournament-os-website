@@ -364,6 +364,14 @@ export const faqs: { q: string; a: string }[] = [
     q: "Do you offer enterprise security and SLAs?",
     a: "Enterprise plans include SSO/SAML, SOC 2 controls, data residency, dedicated infrastructure, contractual SLAs, and a migration team to move you off whatever you run today.",
   },
+  {
+    q: "Can we migrate from a spreadsheet or another platform?",
+    a: "Yes. Import rosters, match history, and standings from CSV or from most tournament platforms, and we'll map your Discord roles and channels automatically. Most organizers are fully migrated before their next event.",
+  },
+  {
+    q: "What happens at the player cap?",
+    a: "There's no hard cap on the platform — 'Scale past 1,024 slots' is about tournament size, not a limit. Single events of 4,096 players run on the same engine as a 16-player local.",
+  },
 ];
 
 /* ---------------------------------------------------------------- footer */

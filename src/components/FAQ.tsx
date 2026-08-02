@@ -15,7 +15,7 @@ import {
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <ParallaxSection id="faq" className="py-24 sm:py-32">
+    <ParallaxSection id="faq" className="py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading eyebrow="Questions, answered" title="Everything you need to know." />
         <Reveal className="mx-auto mt-12 max-w-3xl">

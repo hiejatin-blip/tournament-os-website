@@ -42,7 +42,7 @@ export function HomePage() {
       <div className={SECTION_CLS}><ExploreTeaser /></div>
       <div className={SECTION_CLS}><CompareSection /></div>
       {/* Velocity statement band */}
-      <ScrollBasedVelocity text="COMPETITION · ON AUTOPILOT" className="text-hi/80" />
+      <ScrollBasedVelocity text="256/256 CHECKED IN · 128 THREADS · ~38MS · 28 REGIONS · 6 FORMATS · 99.99% UPTIME" className="text-hi/70" />
       <SectionSeam label="proof" />
       <div className={SECTION_CLS}><Testimonials /></div>
       <div className={SECTION_CLS}><PricingSection /></div>

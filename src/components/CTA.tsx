@@ -13,7 +13,7 @@ export function CTA() {
         <SectionReveal>
           <div className="group relative overflow-hidden rounded-[2rem] border border-white/8 bg-gradient-to-b from-void-800/80 to-void-950/90 px-6 py-16 text-center elev-3 backdrop-blur-xl sm:px-12 sm:py-20">
             <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
-            <div className="pointer-events-none absolute left-1/2 top-0 h-[40vh] w-[40vh] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[120px] animate-breathe blur-orb blur-orb" />
+            
             <div className="pointer-events-none absolute inset-0 bg-grid-fine opacity-[0.04]" />
             <span className="inline-flex items-center gap-2 rounded-full glass px-3 py-1.5"><Sparkles className="h-3.5 w-3.5 text-cyan-400" /><span className="font-mono text-[11px] uppercase tracking-[0.2em] text-mid">Ready when you are</span></span>
             <h2 className="mx-auto mt-6 max-w-3xl text-balance text-4xl font-bold leading-[1.05] text-gradient sm:text-5xl md:text-6xl">Run your next tournament on <span className="text-gradient-holo">autopilot.</span></h2>

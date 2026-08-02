@@ -18,7 +18,7 @@ export type MarketingPage = {
 export const platformPages: Record<string, MarketingPage> = {
   automation: {
     eyebrow: "Automation Engine",
-    title: <>The engine that <span className="text-gradient-cyan">runs itself.</span></>,
+    title: <>The engine that <span className="text-hi">runs itself.</span></>,
     description: "An event-driven orchestration core that reacts to every registration, check-in, score, and dispute the instant it happens — no human in the loop.",
     stats: [{ value: "~38ms", label: "Event latency" }, { value: "6-core", label: "Orchestrator" }, { value: "99.99%", label: "Uptime" }, { value: "0", label: "Manual steps" }],
     features: [
@@ -33,7 +33,7 @@ export const platformPages: Record<string, MarketingPage> = {
   },
   "tournament-engine": {
     eyebrow: "Tournament Engine",
-    title: <>Every format. <span className="text-gradient-cyan">One engine.</span></>,
+    title: <>Every format. <span className="text-hi">One engine.</span></>,
     description: "Single & double elimination, Swiss, round-robin, gauntlet, and multi-stage combinations — generated, seeded, and recomputed automatically.",
     stats: [{ value: "8+", label: "Formats" }, { value: "4096", label: "Max players" }, { value: "Live", label: "Recompute" }, { value: "0", label: "Broken brackets" }],
     features: [
@@ -47,7 +47,7 @@ export const platformPages: Record<string, MarketingPage> = {
   },
   scheduler: {
     eyebrow: "Scheduler",
-    title: <>Timing that <span className="text-gradient-cyan">never conflicts.</span></>,
+    title: <>Timing that <span className="text-hi">never conflicts.</span></>,
     description: "Conflict-aware scheduling across timezones, streams, and venues. Reschedules ripple through every dependent match automatically.",
     stats: [{ value: "12", label: "Timezones" }, { value: "Auto", label: "Conflict scan" }, { value: "Live", label: "Reschedule" }, { value: "24/7", label: "Reminders" }],
     features: [
@@ -61,7 +61,7 @@ export const platformPages: Record<string, MarketingPage> = {
   },
   matchmaking: {
     eyebrow: "Matchmaking",
-    title: <>Fair pairings, <span className="text-gradient-cyan">computed instantly.</span></>,
+    title: <>Fair pairings, <span className="text-hi">computed instantly.</span></>,
     description: "Rating-aware seeding and pairing that keeps every round competitive — from opening matches to the grand final.",
     stats: [{ value: "Elo", label: "Rating model" }, { value: "<1s", label: "Pair time" }, { value: "Live", label: "Re-seed" }, { value: "Fair", label: "By design" }],
     features: [
@@ -75,7 +75,7 @@ export const platformPages: Record<string, MarketingPage> = {
   },
   "live-brackets": {
     eyebrow: "Live Brackets",
-    title: <>Brackets that <span className="text-gradient-cyan">update themselves.</span></>,
+    title: <>Brackets that <span className="text-hi">update themselves.</span></>,
     description: "Real-time bracket trees that recompute the instant a score is reported. Spectators, players, and casters see the same truth simultaneously.",
     stats: [{ value: "Realtime", label: "Updates" }, { value: "∞", label: "Spectators" }, { value: "Live", label: "Standings" }, { value: "1s", label: "Propagation" }],
     features: [
@@ -89,7 +89,7 @@ export const platformPages: Record<string, MarketingPage> = {
   },
   discord: {
     eyebrow: "Discord Integration",
-    title: <>Native to Discord. <span className="text-gradient-cyan">Not a bot.</span></>,
+    title: <>Native to Discord. <span className="text-hi">Not a bot.</span></>,
     description: "Roles, channels, permissions, and match threads provisioned the instant a tournament is born — orchestrated by the platform, not bolted on.",
     stats: [{ value: "Auto", label: "Provisioning" }, { value: "1-click", label: "Setup" }, { value: "Live", label: "Threads" }, { value: "0", label: "Slash spam" }],
     features: [
@@ -103,7 +103,7 @@ export const platformPages: Record<string, MarketingPage> = {
   },
   analytics: {
     eyebrow: "Analytics",
-    title: <>Every match becomes <span className="text-gradient-cyan">structured data.</span></>,
+    title: <>Every match becomes <span className="text-hi">structured data.</span></>,
     description: "Player histories, head-to-head records, and org-wide dashboards. Trustworthy numbers your sponsors and staff can rely on.",
     stats: [{ value: "2.4M+", label: "Players tracked" }, { value: "12.4M+", label: "Matches" }, { value: "CSV/API", label: "Exports" }, { value: "Live", label: "Dashboards" }],
     features: [
@@ -117,7 +117,7 @@ export const platformPages: Record<string, MarketingPage> = {
   },
   architecture: {
     eyebrow: "Architecture",
-    title: <>Engineered like <span className="text-gradient-cyan">infrastructure.</span></>,
+    title: <>Engineered like <span className="text-hi">infrastructure.</span></>,
     description: "A globally distributed, event-driven system built for the split-second demands of live competitive operations at planetary scale.",
     stats: [{ value: "28", label: "Edge regions" }, { value: "99.99%", label: "Uptime SLA" }, { value: "~38ms", label: "P50 latency" }, { value: "Zero", label: "Downtime deploys" }],
     features: [
@@ -131,7 +131,7 @@ export const platformPages: Record<string, MarketingPage> = {
   },
   security: {
     eyebrow: "Security",
-    title: <>Enterprise-grade <span className="text-gradient-cyan">by default.</span></>,
+    title: <>Enterprise-grade <span className="text-hi">by default.</span></>,
     description: "SOC 2 controls, SSO/SAML, granular roles, and full audit trails — so global organizations can trust Tournament OS with their biggest events.",
     stats: [{ value: "SOC 2", label: "Type II" }, { value: "ISO", label: "27001" }, { value: "SSO", label: "SAML/OIDC" }, { value: "100%", label: "Audited" }],
     features: [
@@ -148,7 +148,7 @@ export const platformPages: Record<string, MarketingPage> = {
 export const featurePages: Record<string, MarketingPage> = {
   registration: {
     eyebrow: "Registration",
-    title: <>Sign-ups that <span className="text-gradient-cyan">gate themselves.</span></>,
+    title: <>Sign-ups that <span className="text-hi">gate themselves.</span></>,
     description: "Controlled registration with caps, waitlists, custom fields, and requirements — enforced automatically the instant a player enters.",
     features: [
       { icon: FileText, title: "Custom forms", desc: "Collect exactly the data you need with typed, validated fields." },
@@ -161,7 +161,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   verification: {
     eyebrow: "Verification",
-    title: <>Verified before they <span className="text-gradient-cyan">touch a bracket.</span></>,
+    title: <>Verified before they <span className="text-hi">touch a bracket.</span></>,
     description: "Account, region, and eligibility checks run automatically the moment a player registers — stopping smurfs before the damage is done.",
     features: [
       { icon: ShieldCheck, title: "Account checks", desc: "Verify linked game accounts and identity automatically." },
@@ -174,7 +174,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   "check-in": {
     eyebrow: "Check-in",
-    title: <>Check-ins on <span className="text-gradient-cyan">autopilot.</span></>,
+    title: <>Check-ins on <span className="text-hi">autopilot.</span></>,
     description: "Windowed check-ins with automatic no-show policy. Late arrivals and substitutes resolve by rules — not a sleep-deprived moderator.",
     features: [
       { icon: CheckSquare, title: "Windowed", desc: "Open and close check-in windows precisely on schedule." },
@@ -187,7 +187,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   teams: {
     eyebrow: "Team Management",
-    title: <>Rosters, captains, and <span className="text-gradient-cyan">subs — handled.</span></>,
+    title: <>Rosters, captains, and <span className="text-hi">subs — handled.</span></>,
     description: "Full team lifecycle: invites, roles, roster locks, and substitutions, all synced across brackets and Discord.",
     features: [
       { icon: Users, title: "Roster invites", desc: "Captains build rosters with tracked invites and acceptances." },
@@ -200,7 +200,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   brackets: {
     eyebrow: "Brackets",
-    title: <>Brackets that <span className="text-gradient-cyan">heal themselves.</span></>,
+    title: <>Brackets that <span className="text-hi">heal themselves.</span></>,
     description: "Auto-generated brackets for every format that recompute live and never break — even when players drop.",
     features: [
       { icon: GitBranch, title: "Every format", desc: "Single, double, Swiss, round-robin, and gauntlet." },
@@ -213,7 +213,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   scheduling: {
     eyebrow: "Scheduling",
-    title: <>Schedules that <span className="text-gradient-cyan">manage themselves.</span></>,
+    title: <>Schedules that <span className="text-hi">manage themselves.</span></>,
     description: "Conflict-aware scheduling across timezones and streams, with reminders and reschedules that ripple automatically.",
     features: [
       { icon: CalendarClock, title: "Auto-schedule", desc: "Generate full match schedules in one click." },
@@ -226,7 +226,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   "match-threads": {
     eyebrow: "Match Threads",
-    title: <>Every match, its own <span className="text-gradient-cyan">command channel.</span></>,
+    title: <>Every match, its own <span className="text-hi">command channel.</span></>,
     description: "Auto-provisioned match threads with score reporting, dispute handling, and a complete audit trail — right inside Discord.",
     features: [
       { icon: MessagesSquare, title: "Auto threads", desc: "A dedicated thread spun up for every single match." },
@@ -239,7 +239,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   automation: {
     eyebrow: "Automation",
-    title: <>Set the rules. <span className="text-gradient-cyan">Walk away.</span></>,
+    title: <>Set the rules. <span className="text-hi">Walk away.</span></>,
     description: "Define your policies once and let the engine run the entire operation — registration to results — without intervention.",
     features: [
       { icon: Bot, title: "Policy rules", desc: "Configure once, enforce everywhere, automatically." },
@@ -252,7 +252,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   dashboard: {
     eyebrow: "Dashboard",
-    title: <>One surface for <span className="text-gradient-cyan">the whole operation.</span></>,
+    title: <>One surface for <span className="text-hi">the whole operation.</span></>,
     description: "Run hundreds of concurrent events from a single, unified command center — live ops, brackets, players, and analytics.",
     features: [
       { icon: LayoutDashboard, title: "Unified view", desc: "Every event, every status, on one screen." },
@@ -265,7 +265,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   notifications: {
     eyebrow: "Notifications",
-    title: <>The right ping, <span className="text-gradient-cyan">at the right time.</span></>,
+    title: <>The right ping, <span className="text-hi">at the right time.</span></>,
     description: "Cross-channel notifications — Discord, email, and in-app — that reach the right people exactly when it matters.",
     features: [
       { icon: BellIcon, title: "Multi-channel", desc: "Discord, email, and in-app in one system." },
@@ -278,7 +278,7 @@ export const featurePages: Record<string, MarketingPage> = {
   },
   reports: {
     eyebrow: "Reports",
-    title: <>Post-event recaps, <span className="text-gradient-cyan">generated instantly.</span></>,
+    title: <>Post-event recaps, <span className="text-hi">generated instantly.</span></>,
     description: "The moment a final ends, Tournament OS assembles placements, stats, payouts, and a shareable recap — automatically.",
     features: [
       { icon: FileText, title: "Auto recaps", desc: "Complete event summaries the instant it ends." },
@@ -294,7 +294,7 @@ export const featurePages: Record<string, MarketingPage> = {
 export const solutionPages: Record<string, MarketingPage> = {
   discord: {
     eyebrow: "Discord Communities",
-    title: <>Turn your server into a <span className="text-gradient-cyan">competitive arena.</span></>,
+    title: <>Turn your server into a <span className="text-hi">competitive arena.</span></>,
     description: "Everything a community needs to run recurring tournaments — provisioned inside Discord, running on autopilot.",
     stats: [{ value: "1-click", label: "Setup" }, { value: "Free", label: "To start" }, { value: "Auto", label: "Provisioning" }, { value: "24/7", label: "Automation" }],
     features: [
@@ -308,7 +308,7 @@ export const solutionPages: Record<string, MarketingPage> = {
   },
   leagues: {
     eyebrow: "Online Leagues",
-    title: <>Run a season-long <span className="text-gradient-cyan">league on rails.</span></>,
+    title: <>Run a season-long <span className="text-hi">league on rails.</span></>,
     description: "Multi-week leagues with standings, scheduling, and playoffs — all automated, all in one place.",
     stats: [{ value: "Seasons", label: "Multi-week" }, { value: "Auto", label: "Standings" }, { value: "Live", label: "Playoffs" }, { value: "∞", label: "Divisions" }],
     features: [
@@ -322,7 +322,7 @@ export const solutionPages: Record<string, MarketingPage> = {
   },
   lan: {
     eyebrow: "LAN Events",
-    title: <>On-site events, <span className="text-gradient-cyan">flawlessly run.</span></>,
+    title: <>On-site events, <span className="text-hi">flawlessly run.</span></>,
     description: "Check-in stations, station assignment, and live brackets on the big screen — Tournament OS keeps your LAN on schedule.",
     stats: [{ value: "On-site", label: "Check-in" }, { value: "Live", label: "Big screen" }, { value: "Fast", label: "Turnaround" }, { value: "0", label: "Clipboards" }],
     features: [
@@ -336,7 +336,7 @@ export const solutionPages: Record<string, MarketingPage> = {
   },
   esports: {
     eyebrow: "Esports Organizations",
-    title: <>The backbone of your <span className="text-gradient-cyan">competitive program.</span></>,
+    title: <>The backbone of your <span className="text-hi">competitive program.</span></>,
     description: "Run circuits, qualifiers, and championships at scale with the reliability and data your org and sponsors demand.",
     stats: [{ value: "Scale", label: "Concurrent" }, { value: "SOC 2", label: "Secure" }, { value: "API", label: "Integrations" }, { value: "24/7", label: "Support" }],
     features: [
@@ -350,7 +350,7 @@ export const solutionPages: Record<string, MarketingPage> = {
   },
   education: {
     eyebrow: "Colleges & Universities",
-    title: <>Collegiate esports, <span className="text-gradient-cyan">professionally run.</span></>,
+    title: <>Collegiate esports, <span className="text-hi">professionally run.</span></>,
     description: "Give your program the tools to run intramurals, varsity matches, and inter-collegiate leagues with ease.",
     stats: [{ value: "Roster", label: "Eligibility" }, { value: "Auto", label: "Scheduling" }, { value: "Free", label: "Tier" }, { value: "SSO", label: "Campus" }],
     features: [
@@ -364,7 +364,7 @@ export const solutionPages: Record<string, MarketingPage> = {
   },
   enterprise: {
     eyebrow: "Enterprise",
-    title: <>Global scale, <span className="text-gradient-cyan">enterprise control.</span></>,
+    title: <>Global scale, <span className="text-hi">enterprise control.</span></>,
     description: "Dedicated infrastructure, SLAs, SSO, data residency, and white-glove migration for the world's largest operators.",
     stats: [{ value: "99.99%", label: "SLA" }, { value: "SSO", label: "SAML/OIDC" }, { value: "Dedicated", label: "Infra" }, { value: "24/7", label: "Support" }],
     features: [

@@ -119,24 +119,34 @@ export function AutomationCore() {
   return (
     <section id="automation" className="relative overflow-hidden py-24 sm:py-32">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_left,rgba(34,211,238,0.05),transparent_55%)]" />
+      {/* darker terminal zone on the log side */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-full bg-[radial-gradient(ellipse_60%_80%_at_25%_50%,rgba(3,3,8,0.55),transparent_70%)] lg:w-2/3" />
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading
-          eyebrow="Automation engine"
-          title={<>The pipeline <span className="text-gradient-cyan">runs itself.</span></>}
-          description="Watch the energy flow — every registration, check-in, and score ripples through the engine automatically."
-        />
-        <div className="mt-14 grid items-center gap-12 lg:grid-cols-2">
-          <Engine />
-          <div className="space-y-6">
-            <Log />
-            <div className="flex flex-wrap gap-2">
-              {capabilities.map((c) => (
-                <span key={c.label} className="flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.02] px-3 py-1.5 text-xs text-mid transition-colors hover:border-cyan-400/25 hover:text-hi">
-                  <c.icon className="h-3.5 w-3.5 text-cyan-300" />
-                  {c.label}
+        {/* terminal-dominant: the log IS the section; engine floats right */}
+        <div className="grid items-center gap-12 lg:grid-cols-[1.4fr_1fr]">
+          <div>
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-cyan-300/80">Automation engine</p>
+            <h2 className="mt-4 max-w-xl font-display text-3xl font-bold tracking-tight text-hi sm:text-4xl">
+              A 38ms event loop. Zero manual steps.
+            </h2>
+            <p className="mt-4 max-w-xl text-base leading-relaxed text-mid">
+              256 entrants, 6 stages, 128 Discord threads — every event ripples through the engine in under 50ms.
+              This is the log it leaves behind.
+            </p>
+            <div className="mt-8">
+              <Log />
+            </div>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {capabilities.map((cap) => (
+                <span key={cap.label} className="flex items-center gap-2 rounded-full border border-white/8 bg-white/[0.02] px-3 py-1.5 text-xs text-mid transition-colors hover:border-cyan-400/25 hover:text-hi">
+                  <cap.icon className="h-3.5 w-3.5 text-cyan-300" />
+                  {cap.label}
                 </span>
               ))}
             </div>
+          </div>
+          <div className="hidden lg:block">
+            <Engine />
           </div>
         </div>
       </div>

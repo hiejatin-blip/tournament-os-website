@@ -57,7 +57,7 @@ export function ExplorePage() {
     <>
       <PageHeader
         eyebrow="The public platform"
-        title={<>Explore the <span className="text-gradient-cyan">competitive network.</span></>}
+        title={<>Explore the <span className="text-hi">competitive network.</span></>}
         description="Every tournament, guild, team, and player on Tournament OS — searchable, ranked, and live."
       >
         <button onClick={() => search.setOpen(true)} className="flex w-full max-w-xl items-center gap-3 rounded-2xl glass-card px-4 py-3 text-left transition-colors hover:border-cyan-400/25">
@@ -87,7 +87,7 @@ export function ExplorePage() {
         </Stagger>
       </PageSection>
 
-      <PageSection eyebrow="Live now" heading={<>Tournaments <span className="text-gradient-cyan">happening now.</span></>}>
+      <PageSection eyebrow="Live now" heading={<>Tournaments <span className="text-hi">happening now.</span></>}>
         {tLoad ? <SkeletonGrid count={6} /> : (
           <Stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {featured.map((t) => <StaggerItem key={t.slug} className="h-full"><TournamentCard t={t} /></StaggerItem>)}
@@ -98,7 +98,7 @@ export function ExplorePage() {
         </div>
       </PageSection>
 
-      <PageSection eyebrow="Leaderboards" heading={<>Top of the <span className="text-gradient-cyan">ladder.</span></>}>
+      <PageSection eyebrow="Leaderboards" heading={<>Top of the <span className="text-hi">ladder.</span></>}>
         <div className="grid gap-4 lg:grid-cols-3">
           <RankCard title="Top teams" to="/explore/teams" loading={teamLoad} rows={(teamData ?? []).slice(0, 5).map((t) => ({ to: `/explore/teams/${t.slug}`, tag: t.tag, name: t.name, val: `${t.rating}`, grad: "from-cyan-500/25 to-blue-600/10" }))} />
           <RankCard title="Top guilds" to="/explore/guilds" loading={gLoad} rows={(gData ?? []).slice(0, 5).map((g) => ({ to: `/explore/guilds/${g.slug}`, tag: g.tag, name: g.name, val: `${g.tournaments}`, grad: g.gradient }))} />

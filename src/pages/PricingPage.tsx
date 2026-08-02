@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 export function PricingPage() {
   return (
     <>
-      <PageHeader eyebrow="Pricing" title={<>Start free. Scale to a <span className="text-gradient-cyan">global organization.</span></>} description="Transparent plans that grow with you — from your first community bracket to worldwide championship circuits." />
+      <PageHeader eyebrow="Pricing" title={<>Start free. <span className="text-hi">Scale past 1,024 slots.</span></>} description="Transparent plans that grow with you — from your first community bracket to worldwide championship circuits." />
 
       <PageSection>
         <Stagger className="grid items-stretch gap-5 lg:grid-cols-3">

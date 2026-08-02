@@ -57,7 +57,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 z-[2] bg-grid opacity-20 mask-fade-b" />
       <div className="pointer-events-none absolute inset-0 z-[2] bg-noise" />
       {/* Layer 3 — meteors streaking above the grid */}
-      <Meteors number={14} className="z-[3] opacity-60" />
+      <Meteors number={8} className="z-[3] opacity-40" />
       {/* Layer 4 — drifting gradient orbs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[3] overflow-hidden">
         <div className="animate-drift absolute -left-40 top-24 h-96 w-96 rounded-full bg-cyan-500/10 blur-[120px] blur-orb blur-orb" />

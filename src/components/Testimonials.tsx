@@ -19,14 +19,15 @@ const right = cards.slice(Math.ceil(cards.length / 2));
 
 export function Testimonials() {
   return (
-    <ParallaxSection id="testimonials" className="overflow-hidden py-24 sm:py-32">
+    <ParallaxSection id="testimonials" className="relative overflow-hidden py-24 sm:py-32">
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.04),transparent_60%)]" />
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Trusted by operators"
           title={
             <>
               Built for the people who{" "}
-              <span className="text-gradient-cyan">run the show.</span>
+              run the brackets.
             </>
           }
         />

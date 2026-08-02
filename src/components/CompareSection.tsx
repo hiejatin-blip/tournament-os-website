@@ -14,7 +14,7 @@ export function CompareSection() {
           eyebrow="The difference"
           title={
             <>
-              Manual chaos vs. <span className="text-gradient-cyan">Tournament OS.</span>
+              A spreadsheet at 2am vs. <span className="text-hi">a bracket that seeded itself.</span>
             </>
           }
           description="Drag the handle. This is what running a tournament used to look like — and what it looks like now."

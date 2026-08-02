@@ -81,9 +81,6 @@ export function Lifecycle() {
   const progress = useSpring(reduce || isMobile ? 1 : scrollYProgress, { stiffness: 60, damping: 20 });
 
   const pathLength = useTransform(progress, [0.05, 0.9], [0, 1]);
-  /* how many log lines are revealed */
-  const logCount = useTransform(progress, [0.15, 0.95], [1, automationLog.length]);
-  const logOpacity = useTransform(progress, [0.05, 0.15], [0, 1]);
 
   return (
     <section id="lifecycle" ref={ref} style={{ height: reduce || isMobile ? undefined : "200vh" }} className="relative">
@@ -92,7 +89,7 @@ export function Lifecycle() {
         <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
           <div className="mb-6 text-center">
             <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300">The lifecycle</span>
-            <h2 className="mt-2 font-display text-2xl font-bold text-hi">From creation to <span className="text-gradient-cyan">resolution.</span></h2>
+            <h2 className="mt-2 font-display text-2xl font-bold text-hi">From creation to <span className="text-hi">resolution.</span></h2>
           </div>
           <div className="space-y-3">
             {lifecycle.map((s, i) => (
@@ -111,105 +108,135 @@ export function Lifecycle() {
         </div>
       )}
 
-      {/* STICKY STAGE */}
-      <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5 sm:px-8">
-        {/* ambient */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute left-1/2 top-1/2 h-[70vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/[0.05] blur-[130px] blur-orb blur-orb" />
-          <div className="absolute inset-0 bg-grid opacity-[0.08] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000,transparent)]" />
-        </div>
-
-        {/* headline (fades as the draw takes over) */}
-        <motion.div
-          style={{ opacity: useTransform(progress, [0, 0.15], [1, 0]) }}
-          className="relative z-10 mb-4 text-center"
-        >
-          <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300">
-            The lifecycle
-          </span>
-          <h2 className="mt-2 max-w-2xl text-balance font-display text-2xl font-bold text-hi sm:text-4xl">
-            Watch a tournament <span className="text-gradient-cyan">draw itself.</span>
-          </h2>
-        </motion.div>
-
-        {/* DRAWING STAGE */}
-        <div className="relative z-10 aspect-[16/9] w-full max-w-4xl sm:aspect-[2/1]">
-          {/* the path */}
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full" aria-hidden>
-            <path
-              d={SIMPLE_PATH}
-              fill="none"
-              stroke="rgba(34,211,238,0.12)"
-              strokeWidth="0.6"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeDasharray="2 2"
-            />
-            <motion.path
-              d={SIMPLE_PATH}
-              fill="none"
-              stroke="#22d3ee"
-              strokeWidth="0.8"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={{ pathLength }}
-              className="drop-shadow-[0_0_4px_rgba(34,211,238,0.8)]"
-            />
-            {/* traveling pulse head */}
-            <motion.circle
-              r="1.3"
-              fill="#a5f3fc"
-              style={{
-                opacity: useTransform(progress, [0.05, 0.1, 0.85, 0.95], [0, 1, 1, 0]),
-                offsetDistance: useTransform(progress, [0.05, 0.95], ["0%", "100%"]),
-                offsetPath: `path("${SIMPLE_PATH}")`,
-              }}
-            />
-          </svg>
-
-          {/* nodes */}
-          {lifecycle.map((_, i) => (
-            <StageNode key={i} index={i} progress={progress} />
-          ))}
-
-          {/* start / end markers */}
-          <span className="absolute -bottom-4 left-[16%] font-mono text-[9px] uppercase tracking-wider text-lo">
-            start
-          </span>
-          <span className="absolute -bottom-4 right-[16%] font-mono text-[9px] uppercase tracking-wider text-cyan-300/70">
-            resolved
-          </span>
-        </div>
-
-        {/* AUTOMATION LOG — types out in step with the draw */}
-        <motion.div
-          style={{ opacity: logOpacity }}
-          className="relative z-10 mt-8 w-full max-w-xl rounded-xl border border-white/8 bg-void-950/70 p-3.5 backdrop-blur"
-        >
-          <div className="mb-2 flex items-center justify-between">
-            <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-mid">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
-              automation log
-            </span>
-            <span className="font-mono text-[9px] text-lo">realtime</span>
-          </div>
-          <div className="space-y-1 font-mono text-[11px] leading-relaxed">
-            {automationLog.map((l, i) => (
-              <motion.div
-                key={l.t + l.msg}
-                initial={false}
-                className="flex gap-2"
-                style={{ opacity: useTransform(logCount, (n) => (i < Math.max(1, Math.round(n)) ? 1 : 0.12)) }}
-              >
-                <span className="shrink-0 text-lo">{l.t}</span>
-                <span className="text-cyan-400/60">›</span>
-                <span className={cn(l.tag === "live" ? "font-semibold text-cyan-300" : "text-mid")}>{l.msg}</span>
-              </motion.div>
-            ))}
-            <span className="inline-block h-3 w-1.5 animate-pulse bg-cyan-400 align-middle" />
-          </div>
-        </motion.div>
-      </div>
+      {/* STICKY STAGE — desktop only (mobile gets the card list above).
+          Extracted into LifecycleStage so ALL its hooks live in one
+          mountable unit — conditional mounting is then hook-safe. */}
+      {!isMobile && <LifecycleStage progress={progress} />}
     </section>
+  );
+}
+
+
+
+/* ============================================================================
+   LifecycleStage — the sticky drawing stage. Extracted into its own
+   component so every hook (inline useTransform on the headline, pulse dot,
+   log panel) lives in one mountable unit — conditional mounting on mobile
+   is then hook-safe (no "fewer hooks than expected" violations).
+   ============================================================================ */
+function LifecycleStage({ progress }: { progress: ReturnType<typeof useSpring> }) {
+  const pathLength = useTransform(progress, [0.05, 0.9], [0, 1]);
+  return (
+    <div className="sticky top-0 flex h-screen flex-col items-center justify-center overflow-hidden px-5 sm:px-8">
+      {/* ambient */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-1/2 h-[70vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/[0.05] blur-[130px]" />
+        <div className="absolute inset-0 bg-grid opacity-[0.08] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000,transparent)]" />
+      </div>
+
+      {/* headline (fades as the draw takes over) */}
+      <motion.div
+        style={{ opacity: useTransform(progress, [0, 0.15], [1, 0]) }}
+        className="relative z-10 mb-4 text-center"
+      >
+        <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-cyan-300">
+          The lifecycle
+        </span>
+        <h2 className="mt-2 max-w-2xl text-balance font-display text-2xl font-bold text-hi sm:text-4xl">
+          Watch a tournament draw itself — <span className="text-hi">stage by stage.</span>
+        </h2>
+      </motion.div>
+
+      {/* DRAWING STAGE */}
+      <div className="relative z-10 aspect-[16/9] w-full max-w-4xl sm:aspect-[2/1]">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 h-full w-full" aria-hidden>
+          <path
+            d={SIMPLE_PATH}
+            fill="none"
+            stroke="rgba(34,211,238,0.12)"
+            strokeWidth="0.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="2 2"
+          />
+          <motion.path
+            d={SIMPLE_PATH}
+            fill="none"
+            stroke="#22d3ee"
+            strokeWidth="0.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ pathLength }}
+            className="drop-shadow-[0_0_4px_rgba(34,211,238,0.8)]"
+          />
+          {/* traveling pulse head */}
+          <motion.circle
+            r="1.3"
+            fill="#a5f3fc"
+            style={{
+              opacity: useTransform(progress, [0.05, 0.1, 0.85, 0.95], [0, 1, 1, 0]),
+              offsetDistance: useTransform(progress, [0.05, 0.95], ["0%", "100%"]),
+              offsetPath: `path("${SIMPLE_PATH}")`,
+            }}
+          />
+        </svg>
+
+        {/* nodes */}
+        {lifecycle.map((_, i) => (
+          <StageNode key={i} index={i} progress={progress} />
+        ))}
+
+        {/* start / end markers */}
+        <span className="absolute -bottom-4 left-[16%] font-mono text-[9px] uppercase tracking-wider text-lo">
+          start
+        </span>
+        <span className="absolute -bottom-4 right-[16%] font-mono text-[9px] uppercase tracking-wider text-cyan-300/70">
+          resolved
+        </span>
+      </div>
+
+      {/* AUTOMATION LOG */}
+      <AutomationLog progress={progress} />
+    </div>
+  );
+}
+
+
+/* ============================================================================
+   AutomationLog — the live log panel, extracted as its own component so its
+   per-row hooks (useTransform in a map) mount/unmount as one unit instead of
+   changing the parent's hook count between renders.
+   ============================================================================ */
+function AutomationLog({ progress }: { progress: ReturnType<typeof useSpring> }) {
+  const logCount = useTransform(progress, [0.15, 0.95], [1, automationLog.length]);
+  const logOpacity = useTransform(progress, [0.05, 0.15], [0, 1]);
+  return (
+    <motion.div
+      style={{ opacity: logOpacity }}
+      className="relative z-10 mt-8 w-full max-w-xl rounded-xl border border-white/8 bg-void-950/70 p-3.5 backdrop-blur"
+    >
+      <div className="mb-2 flex items-center justify-between">
+        <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-mid">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
+          automation log
+        </span>
+        <span className="font-mono text-[9px] text-lo">realtime</span>
+      </div>
+      <div className="space-y-1 font-mono text-[11px] leading-relaxed">
+        {automationLog.map((l, i) => (
+          <motion.div
+            key={l.t + l.msg}
+            initial={false}
+            className="flex gap-2"
+            style={{ opacity: useTransform(logCount, (n) => (i < Math.max(1, Math.round(n)) ? 1 : 0.12)) }}
+          >
+            <span className="shrink-0 text-lo">{l.t}</span>
+            <span className="text-cyan-400/60">›</span>
+            <span className={cn(l.tag === "live" ? "font-semibold text-cyan-300" : "text-mid")}>{l.msg}</span>
+          </motion.div>
+        ))}
+        <span className="inline-block h-3 w-1.5 animate-pulse bg-cyan-400 align-middle" />
+      </div>
+    </motion.div>
   );
 }

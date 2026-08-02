@@ -25,14 +25,14 @@ const RINGS = [
 
 export function IntegrationsOrbit() {
   return (
-    <section id="integrations" className="relative overflow-hidden py-24 sm:py-32">
+    <section id="integrations" className="relative overflow-hidden py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid items-center gap-14 lg:grid-cols-2">
           <div>
             <SectionHeading
               align="left"
               eyebrow="Native integrations"
-              title={<>The whole ecosystem, <span className="text-gradient-cyan">in orbit.</span></>}
+              title={<>Discord, Twitch, webhooks, API — <span className="text-hi">one integration surface.</span></>}
               description="Tournament OS isn't another bot bolted onto your stack — it's infrastructure that speaks to everything you already run. Discord, Twitch, webhooks, a full API, and automation everywhere."
             />
             <ul className="mt-8 space-y-4">

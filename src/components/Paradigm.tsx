@@ -180,8 +180,8 @@ export function Paradigm() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="The paradigm shift"
-          title={<>From spreadsheet chaos to <span className="text-gradient-cyan">an engine that runs itself.</span></>}
-          description="Scroll. Watch the mess reassemble into a machine."
+          title={<>Eight manual jobs. <span className="text-hi">Zero of them left.</span></>}
+          description="Check-ins, seeding, brackets, notifications, results — the jobs a staffer used to do at 2am, now one pipeline."
         />
       </div>
 

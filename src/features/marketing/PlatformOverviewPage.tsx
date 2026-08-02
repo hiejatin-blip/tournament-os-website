@@ -19,7 +19,7 @@ export function PlatformOverviewPage() {
     <>
       <PageHeader
         eyebrow="Platform"
-        title={<>The complete <span className="text-gradient-cyan">tournament operating system.</span></>}
+        title={<>The complete <span className="text-hi">tournament operating system.</span></>}
         description="Ten deeply integrated systems working as one — scroll through the pillars of the platform."
       />
       <PageSection>

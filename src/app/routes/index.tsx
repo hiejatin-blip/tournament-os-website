@@ -72,12 +72,12 @@ export function AppRoutes() {
           <Route path="/changelog" element={<ChangelogPage />} />
           <Route path="/roadmap" element={<RoadmapPage />} />
           <Route path="/status" element={<StatusPage />} />
-          <Route path="/about" element={<ContentPage eyebrow="About" title={<>Building the standard for <span className="text-gradient-cyan">competition.</span></>} description="Tournament OS exists to make world-class tournament operations available to everyone — from Discord communities to global esports organizations." />} />
-          <Route path="/careers" element={<ContentPage eyebrow="Careers" title={<>Build the future of <span className="text-gradient-cyan">esports infrastructure.</span></>} description="We're a small, senior team obsessed with craft. If you love systems, motion, and competition — let's talk." />} />
-          <Route path="/contact" element={<ContentPage eyebrow="Contact" title={<>Let's <span className="text-gradient-cyan">talk.</span></>} description="Reach our team for sales, support, or partnership inquiries." />} />
-          <Route path="/docs" element={<ContentPage eyebrow="Documentation" title={<>Everything you need to <span className="text-gradient-cyan">build.</span></>} description="Guides, references, and tutorials for operating Tournament OS." />} />
-          <Route path="/docs/api" element={<ContentPage eyebrow="API Reference" title={<>The Tournament OS <span className="text-gradient-cyan">API.</span></>} description="A fully typed REST + webhook API for deep integrations." />} />
-          <Route path="/blog" element={<ContentPage eyebrow="Blog" title={<>Notes from the <span className="text-gradient-cyan">arena.</span></>} description="Product updates, engineering deep-dives, and competitive insights." />} />
+          <Route path="/about" element={<ContentPage eyebrow="About" title={<>Building the standard for <span className="text-hi">competition.</span></>} description="Tournament OS exists to make world-class tournament operations available to everyone — from Discord communities to global esports organizations." />} />
+          <Route path="/careers" element={<ContentPage eyebrow="Careers" title={<>Build the future of <span className="text-hi">esports infrastructure.</span></>} description="We're a small, senior team obsessed with craft. If you love systems, motion, and competition — let's talk." />} />
+          <Route path="/contact" element={<ContentPage eyebrow="Contact" title={<>Let's <span className="text-hi">talk.</span></>} description="Reach our team for sales, support, or partnership inquiries." />} />
+          <Route path="/docs" element={<ContentPage eyebrow="Documentation" title={<>Everything you need to <span className="text-hi">build.</span></>} description="Guides, references, and tutorials for operating Tournament OS." />} />
+          <Route path="/docs/api" element={<ContentPage eyebrow="API Reference" title={<>The Tournament OS <span className="text-hi">API.</span></>} description="A fully typed REST + webhook API for deep integrations." />} />
+          <Route path="/blog" element={<ContentPage eyebrow="Blog" title={<>Notes from the <span className="text-hi">arena.</span></>} description="Product updates, engineering deep-dives, and competitive insights." />} />
         </Route>
 
         {/* ---------------- PUBLIC PLATFORM ---------------- */}
