@@ -1,0 +1,15 @@
+export {
+  TournamentManager,
+  RegistrationManager,
+  LiveBracketsManager,
+  AutomationManager,
+  GuildManager,
+  SchedulerManager,
+  MatchThreadsManager,
+  AnnouncementsManager,
+  OrganizerAnalytics,
+  ReportsManager,
+  OrganizerSettings,
+  VerificationManager,
+  CheckInManager,
+} from "./OrganizerPages";

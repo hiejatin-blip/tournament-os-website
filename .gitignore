@@ -1,0 +1,28 @@
+# compiled output
+dist
+dist-ssr
+*.tsbuildinfo
+
+# dependencies
+node_modules
+
+# env / secrets
+.env
+.env.*
+!.env.example
+
+# editors & OS
+.vscode/*
+!.vscode/settings.json
+.idea
+.DS_Store
+Thumbs.db
+
+# logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# misc
+coverage
+tmp
