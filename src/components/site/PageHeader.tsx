@@ -12,7 +12,7 @@ export function PageHeader({
 }: { eyebrow?: string; title: ReactNode; description?: ReactNode; children?: ReactNode }) {
   return (
     <section className="relative overflow-hidden px-5 pb-10 pt-36 sm:px-8 sm:pt-44">
-      <div className="pointer-events-none absolute left-1/2 top-20 h-[40vh] w-[70vh] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/2 top-20 h-[40vh] w-[70vh] -translate-x-1/2 rounded-full bg-cyan-500/10 blur-[120px] blur-orb" />
       <div className="relative mx-auto max-w-7xl">
         {eyebrow && (
           <motion.span initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="inline-flex items-center gap-2 rounded-full glass px-3.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-cyan-300">
@@ -20,8 +20,8 @@ export function PageHeader({
           </motion.span>
         )}
         <motion.h1
-          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.05, ease: ease.emphasized }}
           className="mt-5 max-w-4xl text-balance text-4xl font-bold leading-[1.02] text-gradient sm:text-5xl md:text-6xl"
         >

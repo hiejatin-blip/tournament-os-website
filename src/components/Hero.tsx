@@ -6,6 +6,7 @@ import NumberTicker from "@/components/magic/number-ticker";
 import ShimmerButton from "@/components/magic/shimmer-button";
 import { fireConfetti } from "@/components/magic/confetti";
 import FlowField from "@/components/ui-lib/kokonutui/backgrounds/flow-field";
+import { Meteors } from "@/components/magic/meteors";
 import { LampEffect } from "@/components/aceternity/lamp-effect";
 import { MacbookScroll } from "@/components/aceternity/macbook-scroll";
 import { heroStats, liveMatches } from "@/lib/data";
@@ -28,8 +29,8 @@ const container = {
   show: { transition: { staggerChildren: 0.14, delayChildren: 0.1 } },
 };
 const item = {
-  hidden: { opacity: 0, y: 24, filter: "blur(8px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: ease.emphasized } },
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: ease.emphasized } },
 };
 
 export function Hero() {
@@ -55,11 +56,13 @@ export function Hero() {
       {/* Layer 2 — grid + noise texture */}
       <div className="pointer-events-none absolute inset-0 z-[2] bg-grid opacity-20 mask-fade-b" />
       <div className="pointer-events-none absolute inset-0 z-[2] bg-noise" />
-      {/* Layer 3 — drifting gradient orbs */}
+      {/* Layer 3 — meteors streaking above the grid */}
+      <Meteors number={14} className="z-[3] opacity-60" />
+      {/* Layer 4 — drifting gradient orbs */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[3] overflow-hidden">
-        <div className="animate-drift absolute -left-40 top-24 h-96 w-96 rounded-full bg-cyan-500/10 blur-[120px]" />
-        <div className="animate-drift-slow absolute -right-32 top-1/3 h-80 w-80 rounded-full bg-amber-500/[0.07] blur-[110px]" />
-        <div className="animate-drift absolute bottom-40 left-1/3 h-72 w-72 rounded-full bg-violet-500/[0.06] blur-[100px] [animation-delay:-8s]" />
+        <div className="animate-drift absolute -left-40 top-24 h-96 w-96 rounded-full bg-cyan-500/10 blur-[120px] blur-orb blur-orb" />
+        <div className="animate-drift-slow absolute -right-32 top-1/3 h-80 w-80 rounded-full bg-amber-500/[0.07] blur-[110px] blur-orb blur-orb" />
+        <div className="animate-drift absolute bottom-40 left-1/3 h-72 w-72 rounded-full bg-violet-500/[0.06] blur-[100px] [animation-delay:-8s] blur-orb blur-orb" />
       </div>
 
       <motion.div style={{ opacity: heroOpacity }} className="relative z-10">
@@ -172,7 +175,9 @@ export function Hero() {
         <div id="demo" className="relative z-10 mt-6 scroll-mt-20">
           <MacbookScroll
             src="/macbook-dashboard.jpg"
+            eyebrow="The command center"
             title="One control surface for the whole operation."
+            description="Live brackets, check-ins, telemetry, and analytics — every tournament, every region, one screen. Scroll to explore the dashboard inside."
           />
         </div>
       </motion.div>

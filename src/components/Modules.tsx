@@ -1,5 +1,6 @@
 import { ease } from "@/shared/motion/motion-tokens";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 import { Check, ShieldCheck } from "lucide-react";
 import { ParallaxSection, SectionHeading, Stagger, StaggerItem, spotlightHandlers } from "./ui";
 import { modules } from "@/lib/data";
@@ -37,12 +38,13 @@ export function Modules() {
             <VerifVisual />
           </div>
         </motion.div>
-        <Stagger className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Bento grid — asymmetric spans give the featured modules room to breathe */}
+        <Stagger className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {rest.map((m, i) => (
-            <StaggerItem key={m.name} className="h-full">
+            <StaggerItem key={m.name} className={cn("h-full", i % 5 === 0 && "md:col-span-2 lg:col-span-1", i % 7 === 0 && "lg:row-span-1")}>
               <div
-{...spotlightHandlers}
-                className="conic-border spotlight group relative h-full overflow-hidden rounded-2xl glass-card p-6 transition-transform duration-500 hover:-translate-y-1.5"
+                {...spotlightHandlers}
+                className="spotlight group relative h-full overflow-hidden rounded-2xl glass-card p-6 transition-transform duration-500 hover:-translate-y-1.5"
               >
                 <span className="pointer-events-none absolute right-5 top-5 font-mono text-[10px] text-lo/60">{String(i + 1).padStart(2, "0")}</span>
                 <span className="relative grid h-11 w-11 place-items-center rounded-xl border border-white/8 bg-void-800 text-cyan-300 transition-all duration-500 group-hover:border-cyan-400/40 group-hover:text-cyan-200 group-hover:glow-cyan group-hover:-rotate-6 group-hover:scale-105"><m.icon className="h-5 w-5" /></span>
@@ -52,6 +54,14 @@ export function Modules() {
               </div>
             </StaggerItem>
           ))}
+          {/* CTA tile completes the bento */}
+          <StaggerItem className="h-full">
+            <div className="group relative flex h-full flex-col justify-center overflow-hidden rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-cyan-500/[0.07] to-transparent p-6 transition-transform duration-500 hover:-translate-y-1.5">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-cyan-300/80">And counting</span>
+              <h3 className="mt-3 font-display text-xl font-bold text-hi">Every module plugs into every other.</h3>
+              <p className="mt-2 text-sm leading-relaxed text-mid">No silos. One event-driven system where every stage feeds the next automatically.</p>
+            </div>
+          </StaggerItem>
         </Stagger>
       </div>
     </ParallaxSection>

@@ -55,6 +55,8 @@ export function useSpotlight<T extends HTMLElement = HTMLDivElement>() {
 export function useSmoothScroll() {
   useEffect(() => {
     if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    /* Lenis fights native momentum scrolling on touch — keep it desktop-only */
+    if (window.matchMedia("(pointer: coarse)").matches) return;
     let lenis: any;
     let rafId = 0;
     let cancelled = false;
@@ -135,6 +137,26 @@ export function Stagger({ children, className }: { children: ReactNode; classNam
 }
 export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
   return <motion.div variants={iV} className={className}>{children}</motion.div>;
+}
+
+/* ==================== SectionReveal ====================
+   Uniform scroll entrance for page sections — opacity + rise, no blur,
+   compositor-friendly, respects reduced motion via MotionConfig.
+   ==================== */
+export function SectionReveal({
+  children, className, delay = 0, y = 28,
+}: { children: ReactNode; className?: string; delay?: number; y?: number }) {
+  return (
+    <motion.div
+      className={className}
+      initial={{ opacity: 0, y }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-8% 0px -8% 0px" }}
+      transition={{ duration: 0.7, delay, ease: ease.emphasized }}
+    >
+      {children}
+    </motion.div>
+  );
 }
 
 /* ==================== SectionHeading ==================== */

@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import { SiteNav } from "@/components/site/SiteNav";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { GradientShift } from "@/components/GradientShift";
-import { CinematicHUD } from "@/components/CinematicHUD";
 import { ScrollSpeedLines } from "@/components/Backgrounds";
 import { ScrollProgress, useSmoothScroll } from "@/components/ui";
 import { LiveTicker } from "@/components/site/LiveTicker";
@@ -18,7 +17,6 @@ export function HomeLayout() {
     <div className="depth-fog relative min-h-screen">
       <GradientShift />
       <ScrollSpeedLines />
-      <CinematicHUD />
       <ScrollProgress />
       <SiteNav />
       <LiveTicker />

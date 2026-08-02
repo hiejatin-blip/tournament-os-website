@@ -1,10 +1,17 @@
-import { ease } from "@/shared/motion/motion-tokens";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Plus } from "lucide-react";
-import { ParallaxSection, SectionHeading, Reveal } from "./ui";
-import { faqs } from "@/lib/data";
-import { cn } from "@/lib/utils";
+import {
+  ease } from "@/shared/motion/motion-tokens";
+import {
+  useState } from "react";
+import {
+  motion, AnimatePresence } from "framer-motion";
+import {
+  Plus } from "lucide-react";
+import {
+  ParallaxSection, SectionHeading, Reveal, SectionReveal } from "./ui";
+import {
+  faqs } from "@/lib/data";
+import {
+  cn } from "@/lib/utils";
 export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (

@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Outlet, useLocation, NavLink, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { LayoutDashboard, Trophy, Settings, Activity, Menu, Search, Bell, ChevronDown, ChevronRight, X } from "lucide-react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Logo } from "@/components/Logo";
 import { LiveDot } from "@/components/ui";
 import { CommandSearch, useCommandSearch } from "@/components/site/CommandSearch";
@@ -237,13 +238,21 @@ export function DashboardLayout() {
 /* Shared dashboard breadcrumb (context navigation for portal pages) */
 export function DashboardCrumb({ trail }: { trail: string[] }) {
   return (
-    <nav className="mb-6 flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-lo">
-      {trail.map((t, i) => (
-        <span key={t} className="flex items-center gap-1.5">
-          <span className={i === trail.length - 1 ? "text-cyan-300" : ""}>{t}</span>
-          {i < trail.length - 1 && <ChevronRight className="h-3 w-3 text-white/20" />}
-        </span>
-      ))}
-    </nav>
+    <Breadcrumb className="mb-6">
+      <BreadcrumbList className="gap-1 font-mono text-[11px] uppercase tracking-[0.14em] text-lo">
+        {trail.map((t, i) => (
+          <BreadcrumbItem key={t}>
+            {i < trail.length - 1 ? (
+              <>
+                <BreadcrumbLink className="text-lo hover:text-cyan-300">{t}</BreadcrumbLink>
+                <BreadcrumbSeparator className="text-white/20">/</BreadcrumbSeparator>
+              </>
+            ) : (
+              <BreadcrumbPage className="text-cyan-300">{t}</BreadcrumbPage>
+            )}
+          </BreadcrumbItem>
+        ))}
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 }

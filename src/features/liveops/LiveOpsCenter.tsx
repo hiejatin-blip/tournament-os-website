@@ -14,6 +14,9 @@ import {
 import { MetricTile, ConsolePanel, StatusDot, stateLabel, Sparkline } from "./widgets";
 import { InsightsMini } from "@/features/ai";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { fireConfetti } from "@/components/magic/confetti";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 
 
@@ -213,6 +216,7 @@ function MatchRow({ m, onSelect }: { m: LiveMatch; onSelect: () => void }) {
 
 /* ------------------------------------------------------------------ match control panel */
 function MatchControlPanel({ m, onClose }: { m: LiveMatch; onClose: () => void }) {
+  const [confirmOpen, setConfirmOpen] = useState(false);
   const actions = [
     { icon: Play, label: "Start Match", tone: "text-emerald-300" },
     { icon: Pause, label: "Pause Match", tone: "text-amber-300" },
@@ -264,9 +268,42 @@ function MatchControlPanel({ m, onClose }: { m: LiveMatch; onClose: () => void }
         </div>
 
         <footer className="border-t border-white/8 p-4">
-          <button className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-400 py-3 text-sm font-semibold text-void-950 transition-transform hover:scale-[1.01]">
+          <button
+            onClick={() => setConfirmOpen(true)}
+            className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-400 py-3 text-sm font-semibold text-void-950 transition-transform hover:scale-[1.01]"
+          >
             Record Result & Advance Bracket
           </button>
+          <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+            <DialogContent className="border-white/10 bg-void-900/95 backdrop-blur-xl">
+              <DialogHeader>
+                <DialogTitle className="text-hi">Advance {m.a} vs {m.b}?</DialogTitle>
+                <DialogDescription className="text-mid">
+                  The winner advances to the next round. Bracket, standings, and Discord
+                  threads update automatically.
+                </DialogDescription>
+              </DialogHeader>
+              <DialogFooter>
+                <button
+                  onClick={() => setConfirmOpen(false)}
+                  className="rounded-xl border border-white/10 px-4 py-2 text-sm text-mid hover:bg-white/[0.04] hover:text-hi"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={() => {
+                    setConfirmOpen(false);
+                    onClose();
+                    fireConfetti({ particleCount: 160, origin: { x: 0.5, y: 0.4 } });
+                    toast.success(`Result recorded — bracket advanced`);
+                  }}
+                  className="rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-400 px-4 py-2 text-sm font-semibold text-void-950 hover:scale-[1.01]"
+                >
+                  Record & Advance
+                </button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </footer>
     </>
   );

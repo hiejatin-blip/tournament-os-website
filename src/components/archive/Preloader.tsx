@@ -178,8 +178,8 @@ export function Preloader() {
           {/* Background grid + ambient */}
           <div className="absolute inset-0 bg-grid opacity-30" />
           <div className="pointer-events-none absolute inset-0 bg-noise" />
-          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-[120px]" />
-          <div className="pointer-events-none absolute left-1/4 top-1/3 h-[40vh] w-[40vh] rounded-full bg-amber-500/8 blur-[100px]" />
+          <div className="pointer-events-none absolute left-1/2 top-1/2 h-[70vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-[120px] blur-orb" />
+          <div className="pointer-events-none absolute left-1/4 top-1/3 h-[40vh] w-[40vh] rounded-full bg-amber-500/8 blur-[100px] blur-orb" />
 
           {/* Physics particle canvas */}
           <PhysicsCanvas active={phase >= 1 && phase < 4} />

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { SmoothTabBar } from "@/components/ui/kit/SmoothTabBar";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import {
   ArrowRight, Share2, ShieldCheck, Trophy, Users, MapPin, Swords,
 } from "lucide-react";
@@ -94,7 +95,26 @@ export function GuildProfile() {
           {tab === "Overview" && (
             <div className="grid gap-4 lg:grid-cols-3">
               <div className="rounded-2xl glass-card p-6 lg:col-span-2"><h3 className="text-lg font-semibold text-hi">About</h3><p className="mt-3 text-sm leading-relaxed text-mid">{g.description}</p><div className="mt-5 flex flex-wrap gap-1.5">{g.games.map((gm) => <span key={gm} className="rounded-md border border-white/8 bg-white/[0.02] px-2.5 py-1 font-mono text-[11px] text-mid">{gm}</span>)}</div></div>
-              <div className="rounded-2xl glass-card p-6"><h3 className="text-sm font-semibold text-hi">Top players</h3><div className="mt-4 space-y-2">{gPlayers.slice(0, 4).map((p) => <Link key={p.slug} to={`/explore/players/${p.slug}`} className="group flex items-center gap-3 rounded-lg px-2 py-1.5 transition-colors hover:bg-white/[0.03]"><span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-cyan-500/25 to-amber-500/15 text-[10px] font-bold text-hi ring-1 ring-white/10">{p.handle.slice(0, 2)}</span><span className="flex-1 text-sm text-hi group-hover:text-cyan-100">{p.handle}</span><span className="font-mono text-xs text-cyan-300">{p.rating}</span></Link>)}</div></div>
+              <div className="rounded-2xl glass-card p-6"><h3 className="text-sm font-semibold text-hi">Top players</h3><div className="mt-4 space-y-2">{gPlayers.slice(0, 4).map((p) => <HoverCard key={p.slug}>
+            <HoverCardTrigger asChild>
+              <Link to={`/explore/players/${p.slug}`} className="group flex items-center gap-3 rounded-lg px-2 py-1.5 transition-colors hover:bg-white/[0.03]">
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-gradient-to-br from-cyan-500/25 to-amber-500/15 text-[10px] font-bold text-hi ring-1 ring-white/10">{p.handle.slice(0, 2)}</span>
+                <span className="flex-1 text-sm text-hi group-hover:text-cyan-100">{p.handle}</span>
+                <span className="font-mono text-xs text-cyan-300">{p.rating}</span>
+              </Link>
+            </HoverCardTrigger>
+            <HoverCardContent side="right" className="w-56 border-white/10 bg-void-900/95 backdrop-blur-xl">
+              <div className="flex items-center gap-3">
+                <span className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-cyan-500/25 to-amber-500/15 text-[11px] font-bold text-hi ring-1 ring-white/10">{p.handle.slice(0, 2)}</span>
+                <div>
+                  <p className="text-sm font-semibold text-hi">{p.handle}</p>
+                  <p className="font-mono text-[10px] text-lo">{p.role} · {p.team}</p>
+                </div>
+              </div>
+              <p className="mt-3 flex items-center justify-between font-mono text-[11px] text-mid"><span>Rating</span><span className="text-cyan-300">{p.rating}</span></p>
+              <p className="mt-1 flex items-center justify-between font-mono text-[11px] text-mid"><span>Region</span><span className="text-hi">{p.region}</span></p>
+            </HoverCardContent>
+          </HoverCard>)}</div></div>
             </div>
           )}
           {tab === "Tournaments" && (gTournaments.length ? <Stagger className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">{gTournaments.map((t) => <StaggerItem key={t.slug} className="h-full"><TournamentCard t={t} /></StaggerItem>)}</Stagger> : <EmptyState title="No tournaments yet" icon={Trophy} />)}

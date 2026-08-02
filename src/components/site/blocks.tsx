@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Button, Stagger, StaggerItem, SectionHeading , spotlightHandlers } from "../ui";
+import { Button, Stagger, StaggerItem, SectionHeading, SectionReveal, spotlightHandlers } from "../ui";
 import { cn } from "@/lib/utils";
 
 /* ---- Feature grid ---- */
@@ -75,19 +75,21 @@ export function StatBand({ stats }: { stats: { value: string; label: string }[] 
 export function CTABand({ title, description }: { title?: ReactNode; description?: string }) {
   return (
     <section className="relative overflow-hidden px-5 py-24 sm:px-8 sm:py-32">
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[40vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-[120px] animate-breathe" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[40vh] w-[70vh] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/10 blur-[120px] animate-breathe blur-orb" />
       <div className="relative mx-auto max-w-4xl">
-        <div className="conic-border overflow-hidden rounded-[2rem] border border-white/8 bg-gradient-to-b from-void-800/80 to-void-950/90 px-6 py-16 text-center elev-3 backdrop-blur-xl sm:px-12 sm:py-20">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
-          <h2 className="mx-auto max-w-2xl text-balance text-3xl font-bold leading-[1.05] text-gradient sm:text-4xl md:text-5xl">
-            {title ?? <>Run your next tournament on <span className="text-gradient-holo">autopilot.</span></>}
-          </h2>
-          <p className="mx-auto mt-5 max-w-lg text-base text-mid">{description ?? "Deploy Tournament OS in minutes. Free to start, no credit card required."}</p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button variant="primary" size="lg" href="/pricing" iconRight={ArrowRight}>Get access</Button>
-            <Button variant="secondary" size="lg" href="/explore">Explore the platform</Button>
+        <SectionReveal>
+          <div className="overflow-hidden rounded-[2rem] border border-white/8 bg-gradient-to-b from-void-800/80 to-void-950/90 px-6 py-16 text-center elev-3 backdrop-blur-xl sm:px-12 sm:py-20">
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
+            <h2 className="mx-auto max-w-2xl text-balance text-3xl font-bold leading-[1.05] text-gradient sm:text-4xl md:text-5xl">
+              {title ?? <>Run your next tournament on <span className="text-gradient-holo">autopilot.</span></>}
+            </h2>
+            <p className="mx-auto mt-5 max-w-lg text-base text-mid">{description ?? "Deploy Tournament OS in minutes. Free to start, no credit card required."}</p>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Button variant="primary" size="lg" href="/pricing" iconRight={ArrowRight}>Get access</Button>
+              <Button variant="secondary" size="lg" href="/explore">Explore the platform</Button>
+            </div>
           </div>
-        </div>
+        </SectionReveal>
       </div>
     </section>
   );

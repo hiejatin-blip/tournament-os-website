@@ -36,9 +36,9 @@ export const spring = {
 
 /* Page transition — used by all layout <Outlet /> wrappers */
 export const pageVariants: Variants = {
-  initial: { opacity: 0, y: 14, filter: "blur(6px)" },
-  enter: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: dur.slow, ease: ease.emphasized } },
-  exit: { opacity: 0, y: -8, filter: "blur(4px)", transition: { duration: dur.fast, ease: ease.exit } },
+  initial: { opacity: 0, y: 14 },
+  enter: { opacity: 1, y: 0, transition: { duration: dur.slow, ease: ease.emphasized } },
+  exit: { opacity: 0, y: -8, transition: { duration: dur.fast, ease: ease.exit } },
 };
 
 /* Dashboard content transition — tighter, snappier for app feel */
@@ -50,8 +50,8 @@ export const appPageVariants: Variants = {
 
 /* Reveal on scroll into view */
 export const revealVariants: Variants = {
-  hidden: { opacity: 0, y: 28, scale: 0.97, filter: "blur(4px)" },
-  show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", transition: { duration: dur.slow, ease: ease.emphasized } },
+  hidden: { opacity: 0, y: 28, scale: 0.97 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: dur.slow, ease: ease.emphasized } },
 };
 
 /* Stagger container + item */

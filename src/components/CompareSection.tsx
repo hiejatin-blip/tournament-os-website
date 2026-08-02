@@ -1,4 +1,4 @@
-import { ParallaxSection, SectionHeading } from "./ui";
+import { ParallaxSection, SectionHeading, SectionReveal } from "./ui";
 import { Compare } from "@/components/aceternity/compare";
 
 /* ============================================================================
@@ -19,14 +19,14 @@ export function CompareSection() {
           }
           description="Drag the handle. This is what running a tournament used to look like — and what it looks like now."
         />
-        <div className="mx-auto mt-12 max-w-5xl">
+        <SectionReveal className="mx-auto mt-12 max-w-5xl">
           <Compare
             firstImage="/compare-before.jpg"
             secondImage="/compare-after.jpg"
             firstLabel="Before"
             secondLabel="After"
           />
-        </div>
+        </SectionReveal>
       </div>
     </ParallaxSection>
   );

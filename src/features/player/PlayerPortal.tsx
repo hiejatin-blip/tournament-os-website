@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { ease } from "@/shared/motion/motion-tokens";
 import { StatCard } from "@/components/ui/kit/StatCard";
 import { Switch } from "@/components/ui/switch";
+import { SmoothTabBar } from "@/components/ui/kit/SmoothTabBar";
 import { useConfetti } from "@/components/magic/confetti";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -176,14 +177,15 @@ export function MyTournaments() {
   return (
     <div>
       <PageHead crumb={["Player", "My Tournaments"]} title="My Tournaments" sub="Track all your registrations, statuses, and results." />
-      <div className="mb-6 flex gap-1 rounded-2xl glass-card p-1.5 w-fit">
-        {(["active", "completed"] as const).map((t) => (
-          <button key={t} onClick={() => setTab(t)} className={cn("relative rounded-xl px-4 py-2 text-sm font-medium transition-colors capitalize", tab === t ? "text-void-950" : "text-mid hover:text-hi")}>
-            {tab === t && <motion.span layoutId="ttab" className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-500" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
-            <span className="relative">{t} <span className="font-mono text-[10px]">({(t === "active" ? active : completed).length})</span></span>
-          </button>
-        ))}
-      </div>
+      <SmoothTabBar
+        className="mb-6 w-fit rounded-2xl glass-card p-1.5"
+        items={(["active", "completed"] as const).map((t) => ({
+          id: t,
+          label: `${t} (${(t === "active" ? active : completed).length})`,
+        }))}
+        value={tab}
+        onChange={(id) => setTab(id as "active" | "completed")}
+      />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {shown.map((t) => (
           <motion.div key={t.slug} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ease: ease.emphasized }} className="relative overflow-hidden rounded-2xl glass-card">

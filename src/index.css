@@ -301,6 +301,26 @@
   90% { opacity:1; }
   100% { transform: translateY(3000%); opacity:0; }
 }
+@keyframes meteor {
+  0% { transform: translate(0, 0) rotate(215deg); opacity: 0; }
+  5% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: translate(-45vw, 60vh) rotate(215deg); opacity: 0; }
+}
+.animate-meteor { animation: meteor 6s linear infinite; }
+
+@keyframes beamPulse {
+  0% { opacity: 0.1; }
+  50% { opacity: 1; }
+  100% { opacity: 0.1; }
+}
+@keyframes beamDot {
+  0% { offset-distance: 0%; opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { offset-distance: 100%; opacity: 0; }
+}
+
 @keyframes scroll {
   to { transform: translate(calc(-50% - 0.5rem)); }
 }
@@ -497,3 +517,25 @@ html { scroll-behavior: smooth; }
 .focus-cards > * { transition: opacity 0.4s var(--ease-emphasized), transform 0.4s var(--ease-emphasized); }
 .focus-cards:hover > * { opacity: 0.45; }
 .focus-cards:hover > *:hover { opacity: 1; }
+
+/* ---- GLOBAL POLISH: consistent hover transitions everywhere ---- */
+a, button { -webkit-tap-highlight-color: transparent; }
+::selection { background: rgba(34,211,238,0.35); color: #fff; }
+
+/* ============================================================================
+   MOBILE PERFORMANCE GUARD — progressive enhancement, features stay.
+   Decorative infinite animations and giant blur orbs are rendering cost on
+   mobile GPUs; content and interactions are untouched.
+   ============================================================================ */
+@media (max-width: 767px) {
+  /* decorative infinite animations off (meteors, orbs, breathe, spin, float) */
+  .animate-float, .animate-float-x, .animate-drift, .animate-drift-slow,
+  .animate-breathe, .animate-meteor, .animate-spin-slow, .animate-pulse-ring,
+  .animate-ping, .animate-scanline { animation: none !important; }
+  /* giant decorative blur orbs hidden — pure decoration */
+  .blur-orb { display: none !important; }
+  /* glass stays but renders lighter */
+  .glass, .glass-strong, .glass-card { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  /* scroll-linked parallax/rotate transforms off — cheaper painting */
+  .parallax-tilt { transform: none !important; }
+}

@@ -9,6 +9,7 @@ import {
 import { DashboardCrumb } from "@/app/layouts/DashboardLayout";
 import { Metric, AreaChart, BarChart } from "@tremor/react";
 import { Calendar as CalendarPicker } from "@/components/ui/calendar";
+import { SmoothTabBar } from "@/components/ui/kit/SmoothTabBar";
 import { Button, LiveDot } from "@/components/ui";
 import { managedTournaments, registrationQueue, botStatus } from "./organizerData";
 import { cn } from "@/lib/utils";
@@ -98,14 +99,15 @@ export function RegistrationManager() {
     <div>
       <PageHead crumb={["Organizer", "Registration"]} title="Registration Queue" sub="Approve or reject participant entries." actions={<><Button variant="outline" size="md" icon={Download}>Export CSV</Button><Button variant="primary" size="md" icon={CheckSquare}>Bulk Approve</Button></>} />
       
-      <div className="mb-6 flex gap-1 rounded-2xl glass-card p-1.5 w-fit">
-        {(["Pending", "Approved", "Rejected"] as const).map((t) => (
-          <button key={t} onClick={() => setTab(t)} className={cn("relative rounded-xl px-4 py-2 text-sm font-medium transition-colors", tab === t ? "text-void-950" : "text-mid hover:text-hi")}>
-            {tab === t && <motion.span layoutId="regtab" className="absolute inset-0 rounded-xl bg-gradient-to-r from-cyan-400 to-cyan-500" transition={{ type: "spring", stiffness: 380, damping: 32 }} />}
-            <span className="relative">{t} <span className="font-mono text-[10px]">({registrationQueue.filter(r => r.status === t).length})</span></span>
-          </button>
-        ))}
-      </div>
+      <SmoothTabBar
+        className="mb-6 w-fit rounded-2xl glass-card p-1.5"
+        items={(["Pending", "Approved", "Rejected"] as const).map((t) => ({
+          id: t,
+          label: `${t} (${registrationQueue.filter((r) => r.status === t).length})`,
+        }))}
+        value={tab}
+        onChange={(id) => setTab(id as "Pending" | "Approved" | "Rejected")}
+      />
 
       <div className="overflow-hidden rounded-2xl glass-card">
         <div className="grid grid-cols-[auto_1fr_1fr_auto_auto_auto] gap-4 border-b border-white/6 px-5 py-3 font-mono text-[10px] uppercase tracking-wider text-lo">

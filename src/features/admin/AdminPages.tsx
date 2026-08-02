@@ -9,6 +9,12 @@ import {
 import { DashboardCrumb } from "@/app/layouts/DashboardLayout";
 import { Button } from "@/components/ui";
 import { DataTable } from "@/components/ui/kit/DataTable";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 import type { ColumnDef } from "@tanstack/react-table";
 import { cn } from "@/lib/utils";
 
@@ -268,7 +274,29 @@ export function AdminAPIKeys() {
               <span className="font-mono text-xs text-lo">Created: {k.created}</span>
               <span className={cn("rounded-full border px-2 py-0.5 font-mono text-[10px]", k.status === "Active" ? "border-emerald-400/40 text-emerald-300" : "border-rose-400/40 text-rose-300")}>{k.status}</span>
               <button className="text-xs text-cyan-300 hover:text-cyan-200">Rotate</button>
-              <button className="text-xs text-rose-400 hover:text-rose-300">Revoke</button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <button className="text-xs text-rose-400 hover:text-rose-300">Revoke</button>
+                </AlertDialogTrigger>
+                <AlertDialogContent className="border-white/10 bg-void-900/95 backdrop-blur-xl">
+                  <AlertDialogHeader>
+                    <AlertDialogTitle className="text-hi">Revoke {k.name}?</AlertDialogTitle>
+                    <AlertDialogDescription className="text-mid">
+                      This immediately invalidates <span className="font-mono text-cyan-300">{k.key}</span>.
+                      Any service using this key will lose access until a new one is generated.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel className="border-white/10 text-mid hover:bg-white/[0.04] hover:text-hi">Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      className="bg-rose-500 text-white hover:bg-rose-600"
+                      onClick={() => toast.error(`${k.name} revoked`)}
+                    >
+                      Revoke key
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </div>
           </div>
         ))}

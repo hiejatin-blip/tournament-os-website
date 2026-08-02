@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, Trophy, Building2, Users, UserCheck, CornerDownLeft, ArrowUp, ArrowDown } from "lucide-react";
 import { useSearchIndex, searchAll, type SearchResult } from "@/lib/queries";
 import { quickActions } from "@/shared/config/navigation";
+import { Kbd } from "@/components/ui/kbd";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
 const typeIcon = { Tournament: Trophy, Guild: Building2, Team: Users, Player: UserCheck } as const;
@@ -60,11 +62,11 @@ export function CommandSearch({ open, onClose }: { open: boolean; onClose: () =>
             <div className="flex items-center gap-3 border-b border-white/8 px-5 py-4">
               <Search className="h-5 w-5 shrink-0 text-lo" />
               <input ref={inputRef} value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search tournaments, guilds, teams, players…" className="w-full bg-transparent text-[15px] text-hi placeholder:text-lo focus:outline-none" />
-              <kbd className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 font-mono text-[10px] text-lo">ESC</kbd>
+              <Kbd className="rounded border border-white/10 bg-white/5 px-1.5 py-0.5 text-[10px] text-lo">ESC</Kbd>
             </div>
 
             {/* Results */}
-            <div className="max-h-[52vh] overflow-y-auto p-2 no-scrollbar">
+            <ScrollArea className="max-h-[52vh] p-2">
               {!query && (
                 <>
                   <p className="px-3 py-2 font-mono text-[10px] uppercase tracking-wider text-lo">Quick actions</p>
@@ -103,7 +105,7 @@ export function CommandSearch({ open, onClose }: { open: boolean; onClose: () =>
                   </button>
                 );
               })}
-            </div>
+            </ScrollArea>
 
             {/* Footer hints */}
             <div className="flex items-center justify-between border-t border-white/8 px-5 py-3 font-mono text-[10px] uppercase tracking-wider text-lo">

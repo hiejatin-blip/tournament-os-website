@@ -10,7 +10,7 @@ export function AuthLayout() {
   return (
     <div className="depth-fog relative grid min-h-screen place-items-center overflow-hidden px-5">
       <div className="pointer-events-none absolute inset-0 bg-grid opacity-30" />
-      <div className="pointer-events-none absolute left-1/2 top-1/3 h-[50vh] w-[60vh] -translate-x-1/2 rounded-full bg-cyan-500/12 blur-[120px]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/3 h-[50vh] w-[60vh] -translate-x-1/2 rounded-full bg-cyan-500/12 blur-[120px] blur-orb" />
 
       <div className="relative w-full max-w-md">
         <Link to="/" className="mb-8 flex justify-center"><Logo /></Link>

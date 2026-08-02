@@ -4,6 +4,11 @@
    logo, back-link, and ambient background.
    ============================================================================ */
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@/components/ui/form";
+import { AuthFormField, AuthRegionField } from "./AuthFormField";
+import { loginSchema, signupSchema, forgotSchema, resetSchema, type LoginValues, type SignupValues, type ForgotValues, type ResetValues } from "./schemas";
 import { ease } from "@/shared/motion/motion-tokens";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -12,38 +17,13 @@ import { toast } from "sonner";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import DynamicText from "@/components/ui-lib/kokonutui/texts/dynamic-text";
 import Loader from "@/components/ui-lib/kokonutui/inputs/loader";
+import ProfileSetup from "@/components/ui-lib/kokonutui/inputs/avatar-picker";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useAuth } from "./AuthContext";
 import { REGIONS } from "@/lib/directory";
 import { cn } from "@/lib/utils";
 
 /* Shared primitives */
-
-function Field({ label, type = "text", id, value, onChange, error, placeholder, suffix }: {
-  label: string; type?: string; id: string; value: string; onChange: (v: string) => void;
-  error?: string; placeholder?: string; suffix?: React.ReactNode;
-}) {
-  const [show, setShow] = useState(false);
-  const isPassword = type === "password";
-  return (
-    <div>
-      <label htmlFor={id} className="block text-sm font-medium text-hi">{label}</label>
-      <div className="relative mt-1.5">
-        <input
-          id={id} type={isPassword ? (show ? "text" : "password") : type}
-          value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder}
-          className={cn("w-full rounded-xl border bg-white/[0.02] px-4 py-3 text-sm text-hi placeholder:text-lo focus:outline-none focus:ring-1", error ? "border-rose-400/60 focus:ring-rose-400/60" : "border-white/10 focus:border-cyan-400/50 focus:ring-cyan-400/50")}
-        />
-        {isPassword && (
-          <button type="button" onClick={() => setShow((v) => !v)} className="absolute right-3 top-1/2 -translate-y-1/2 text-lo hover:text-hi">
-            {show ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-          </button>
-        )}
-        {suffix && <div className="absolute right-3 top-1/2 -translate-y-1/2">{suffix}</div>}
-      </div>
-      {error && <p className="mt-1 text-xs text-rose-400">{error}</p>}
-    </div>
-  );
-}
 
 function SubmitButton({ loading, children }: { loading: boolean; children: React.ReactNode }) {
   return (
@@ -73,20 +53,18 @@ export function LoginPage() {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const next = params.get("next") ?? "/app/player";
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
-  const [fieldError, setFieldError] = useState<Record<string, string>>({});
   const [globalError, setGlobalError] = useState("");
 
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    setFieldError({});
+  const form = useForm<LoginValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: { email: "", password: "", rememberMe: false },
+  });
+
+  async function onSubmit(values: LoginValues) {
     setGlobalError("");
-    const err = await login({ email, password, rememberMe });
+    const err = await login({ email: values.email, password: values.password, rememberMe: !!values.rememberMe });
     if (err) {
-      if (err.field) setFieldError({ [err.field]: err.message });
+      if (err.field) form.setError(err.field as keyof LoginValues, { message: err.message });
       else setGlobalError(err.message);
       return;
     }
@@ -104,23 +82,29 @@ export function LoginPage() {
         <SocialButtons />
         <Divider />
 
-        <form onSubmit={submit} className="space-y-4">
-          {globalError && <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 px-3 py-2.5 text-sm text-rose-300">{globalError}</div>}
-          <Field label="Email address" type="email" id="email" value={email} onChange={setEmail} placeholder="you@guild.gg" error={fieldError.email} />
-          <Field label="Password" type="password" id="password" value={password} onChange={setPassword} placeholder="••••••••" error={fieldError.password} />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {globalError && <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 px-3 py-2.5 text-sm text-rose-300">{globalError}</div>}
+            <AuthFormField name="email" label="Email address" type="email" placeholder="you@guild.gg" autoComplete="email" />
+            <AuthFormField name="password" label="Password" type="password" placeholder="••••••••" autoComplete="current-password" />
 
-          <div className="flex items-center justify-between text-sm">
-            <label className="flex cursor-pointer items-center gap-2 text-mid">
-              <span className={cn("grid h-4 w-4 place-items-center rounded border transition-colors", rememberMe ? "border-cyan-400/60 bg-cyan-400/20 text-cyan-300" : "border-white/15 bg-white/[0.02]")} onClick={() => setRememberMe((v) => !v)}>
-                {rememberMe && <Check className="h-3 w-3" />}
-              </span>
-              Remember me
-            </label>
-            <Link to="/forgot-password" className="text-cyan-300 hover:text-cyan-200">Forgot password?</Link>
-          </div>
+            <div className="flex items-center justify-between text-sm">
+              <FormField
+                control={form.control}
+                name="rememberMe"
+                render={({ field }) => (
+                  <label className="flex cursor-pointer items-center gap-2 text-mid">
+                    <Checkbox checked={!!field.value} onCheckedChange={field.onChange} className="data-[state=checked]:bg-cyan-400 data-[state=checked]:border-cyan-400" />
+                    Remember me
+                  </label>
+                )}
+              />
+              <Link to="/forgot-password" className="text-cyan-300 hover:text-cyan-200">Forgot password?</Link>
+            </div>
 
-          <SubmitButton loading={auth.status === "loading"}>Sign in</SubmitButton>
-        </form>
+            <SubmitButton loading={auth.status === "loading"}>Sign in</SubmitButton>
+          </form>
+        </Form>
 
         <p className="mt-6 text-center text-xs text-mid">No account? <Link to="/signup" className="text-cyan-300 hover:text-cyan-200 font-medium">Create one</Link></p>
       </div>
@@ -133,22 +117,24 @@ export function LoginPage() {
 export function SignupPage() {
   const { signup, auth } = useAuth();
   const navigate = useNavigate();
-
-  const [username, setUsername] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [region, setRegion] = useState<string>("EU-West");
-  const [fieldError, setFieldError] = useState<Record<string, string>>({});
   const [globalError, setGlobalError] = useState("");
 
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    setFieldError({});
+  const form = useForm<SignupValues>({
+    resolver: zodResolver(signupSchema),
+    defaultValues: { username: "", displayName: "", email: "", password: "", confirmPassword: "", region: "EU-West", agree: false },
+  });
+
+  async function onSubmit(values: SignupValues) {
     setGlobalError("");
-    const err = await signup({ username, displayName, email, password, region });
+    const err = await signup({
+      username: values.username,
+      displayName: values.displayName ?? "",
+      email: values.email,
+      password: values.password,
+      region: values.region,
+    });
     if (err) {
-      if (err.field) setFieldError({ [err.field]: err.message });
+      if (err.field) form.setError(err.field as keyof SignupValues, { message: err.message });
       else setGlobalError(err.message);
       return;
     }
@@ -165,22 +151,50 @@ export function SignupPage() {
         <SocialButtons />
         <Divider />
 
-        <form onSubmit={submit} className="space-y-4">
-          {globalError && <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 px-3 py-2.5 text-sm text-rose-300">{globalError}</div>}
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Username" id="username" value={username} onChange={setUsername} placeholder="Phantom" error={fieldError.username} />
-            <Field label="Display name" id="displayName" value={displayName} onChange={setDisplayName} placeholder="Kai Nakamura" />
-          </div>
-          <Field label="Email address" type="email" id="email" value={email} onChange={setEmail} placeholder="you@guild.gg" error={fieldError.email} />
-          <Field label="Password" type="password" id="password" value={password} onChange={setPassword} placeholder="8+ characters" error={fieldError.password} />
-          <div>
-            <label className="block text-sm font-medium text-hi">Region</label>
-            <select value={region} onChange={(e) => setRegion(e.target.value)} className="mt-1.5 w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-hi focus:border-cyan-400/50 focus:outline-none">
-              {REGIONS.map((r) => <option key={r} value={r}>{r}</option>)}
-            </select>
-          </div>
-          <SubmitButton loading={auth.status === "loading"}>Create account</SubmitButton>
-        </form>
+        {/* Identity step — KokonutUI avatar picker (wired) */}
+        <div className="mb-5 rounded-2xl border border-white/8 bg-white/[0.01] p-2">
+          <ProfileSetup
+            onComplete={(data) => {
+              form.setValue("username", data.username);
+            }}
+          />
+        </div>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {globalError && <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 px-3 py-2.5 text-sm text-rose-300">{globalError}</div>}
+            <div className="grid grid-cols-2 gap-3">
+              <AuthFormField name="username" label="Username" placeholder="Phantom" autoComplete="username" />
+              <AuthFormField name="displayName" label="Display name" placeholder="Kai Nakamura" />
+            </div>
+            <AuthFormField name="email" label="Email address" type="email" placeholder="you@guild.gg" autoComplete="email" />
+            <div className="grid grid-cols-2 gap-3">
+              <AuthFormField name="password" label="Password" type="password" placeholder="8+ characters" autoComplete="new-password" />
+              <AuthFormField name="confirmPassword" label="Confirm password" type="password" placeholder="Repeat password" autoComplete="new-password" />
+            </div>
+            <AuthRegionField name="region" regions={REGIONS} />
+
+            <FormField
+              control={form.control}
+              name="agree"
+              render={({ field }) => (
+                <FormItem>
+                  <label className="flex items-start gap-3 rounded-xl border border-white/6 bg-white/[0.01] px-4 py-3.5">
+                    <Checkbox checked={!!field.value} onCheckedChange={field.onChange} className="mt-0.5 data-[state=checked]:bg-cyan-400 data-[state=checked]:border-cyan-400" />
+                    <span className="text-xs leading-relaxed text-mid">
+                      I agree to the <span className="text-cyan-300">Code of Conduct</span>, the{" "}
+                      <span className="text-cyan-300">Tournament Rules</span>, and the platform{" "}
+                      <span className="text-cyan-300">Terms of Service</span>.
+                    </span>
+                  </label>
+                  <FormMessage className="px-1 text-xs text-rose-400" />
+                </FormItem>
+              )}
+            />
+
+            <SubmitButton loading={auth.status === "loading"}>Create account</SubmitButton>
+          </form>
+        </Form>
 
         <p className="mt-6 text-center text-xs text-mid">Already have an account? <Link to="/login" className="text-cyan-300 hover:text-cyan-200 font-medium">Sign in</Link></p>
       </div>
@@ -190,15 +204,16 @@ export function SignupPage() {
 
 /* ============================================================ Forgot Password */
 export function ForgotPasswordPage() {
-  const [email, setEmail] = useState("");
   const [sent, setSent] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [sentEmail, setSentEmail] = useState("");
+  const form = useForm<ForgotValues>({
+    resolver: zodResolver(forgotSchema),
+    defaultValues: { email: "" },
+  });
 
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setLoading(false);
+  async function onSubmit(values: ForgotValues) {
+    setSentEmail(values.email);
+    await new Promise((r) => setTimeout(r, 900));
     setSent(true);
   }
 
@@ -210,17 +225,19 @@ export function ForgotPasswordPage() {
           <div className="py-6 text-center">
             <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-emerald-400/10 text-emerald-400"><Check className="h-7 w-7" /></div>
             <h2 className="mt-5 text-lg font-semibold text-hi">Check your inbox</h2>
-            <p className="mt-2 text-sm text-mid">We sent a reset link to <span className="text-hi">{email}</span>. It expires in 30 minutes.</p>
+            <p className="mt-2 text-sm text-mid">We sent a reset link to <span className="text-hi">{sentEmail}</span>. It expires in 30 minutes.</p>
             <Link to="/login" className="mt-6 block text-sm text-cyan-300 hover:text-cyan-200">Back to sign in</Link>
           </div>
         ) : (
           <>
             <h1 className="text-center font-display text-2xl font-bold text-hi">Reset password</h1>
             <p className="mt-1 text-center text-sm text-mid">Enter your email and we'll send a reset link.</p>
-            <form onSubmit={submit} className="mt-6 space-y-4">
-              <Field label="Email address" type="email" id="email" value={email} onChange={setEmail} placeholder="you@guild.gg" />
-              <SubmitButton loading={loading}>Send reset link</SubmitButton>
-            </form>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-4">
+                <AuthFormField name="email" label="Email address" type="email" placeholder="you@guild.gg" autoComplete="email" />
+                <SubmitButton loading={form.formState.isSubmitting}>Send reset link</SubmitButton>
+              </form>
+            </Form>
             <p className="mt-4 text-center text-xs text-mid"><Link to="/login" className="text-cyan-300 hover:text-cyan-200">Back to sign in</Link></p>
           </>
         )}
@@ -233,19 +250,14 @@ export function ForgotPasswordPage() {
 export function ResetPasswordPage() {
   const [params] = useSearchParams();
   const token = params.get("token");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
   const [done, setDone] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const form = useForm<ResetValues>({
+    resolver: zodResolver(resetSchema),
+    defaultValues: { password: "", confirmPassword: "" },
+  });
 
-  async function submit(e: React.FormEvent) {
-    e.preventDefault();
-    if (password.length < 6) { setError("Password must be at least 6 characters."); return; }
-    if (password !== confirm) { setError("Passwords don't match."); return; }
-    setLoading(true);
+  async function onSubmit() {
     await new Promise((r) => setTimeout(r, 900));
-    setLoading(false);
     setDone(true);
   }
 
@@ -266,12 +278,13 @@ export function ResetPasswordPage() {
           <>
             <h1 className="text-center font-display text-2xl font-bold text-hi">New password</h1>
             <p className="mt-1 text-center text-sm text-mid">Choose a strong password for your account.</p>
-            <form onSubmit={submit} className="mt-6 space-y-4">
-              {error && <div className="rounded-xl border border-rose-400/30 bg-rose-500/10 px-3 py-2.5 text-sm text-rose-300">{error}</div>}
-              <Field label="New password" type="password" id="password" value={password} onChange={setPassword} placeholder="8+ characters" />
-              <Field label="Confirm password" type="password" id="confirm" value={confirm} onChange={setConfirm} placeholder="Must match above" />
-              <SubmitButton loading={loading}>Update password</SubmitButton>
-            </form>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-4">
+                <AuthFormField name="password" label="New password" type="password" placeholder="8+ characters" autoComplete="new-password" />
+                <AuthFormField name="confirmPassword" label="Confirm password" type="password" placeholder="Repeat password" autoComplete="new-password" />
+                <SubmitButton loading={form.formState.isSubmitting}>Update password</SubmitButton>
+              </form>
+            </Form>
           </>
         )}
       </div>
